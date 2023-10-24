@@ -6,15 +6,6 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <h4 class="text-right">
-              Tổng số tiền:
-              {{ `${totalMoney().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} đ` }}
-            </h4>
-          </div>
-        </div>
-  
-        <div class="row">
-          <div class="col">
             <table class="table table-borderd table-striped">
               <thead>
                 <th>STT</th>
@@ -41,7 +32,7 @@
                   </td>
                   <td>{{ product.name }}</td>
                   <td class="text-right">
-                    {{ product.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} Đồng
+                    {{ product.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} đ
                   </td>
                   <td class="text-right">{{ product.amount }}</td>
                   <td class="text-right">
@@ -51,7 +42,7 @@
                         ","
                       )
                     }}
-                    Đồng
+                    đ
                   </td>
                   <td>
                     <button
@@ -74,6 +65,14 @@
                   </tr>
                 </tfoot> -->
             </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4 class="text-right">
+              Tổng số tiền:
+              {{ `${totalMoney().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} đ` }}
+            </h4>
           </div>
         </div>
       </div>
