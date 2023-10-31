@@ -1,4 +1,5 @@
 const { ObjectId } = require("mongodb");
+
     class UserService {
         constructor(client) {
         this.User = client.db().collection("users");

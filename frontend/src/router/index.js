@@ -1,13 +1,18 @@
 import { createWebHistory, createRouter } from "vue-router";
-import ProductBook from "@/views/ProductAdmin.vue";
+import AdminPage from "@/views/ProductAdmin.vue";
 import LoginPage from "../components/Login.vue";
 import RegisterPage from "../components/Register.vue";
 import HomePage from "../components/Home.vue";
 import IntroducePage from "../components/Introduce.vue";
 import ShoppingCart from "../components/ShoppingCart.vue"
-
+import AdminLogin from "../components/AdminLogin.vue"
 
 const routes = [
+    {
+        path: "/:pathMatch(.*)*",
+        name: "notfound",
+        component: () => import("@/views/NotFound.vue"),
+    },
     {
         path: "/",
         name: "HomePage",
@@ -32,16 +37,15 @@ const routes = [
         component: ShoppingCart,
         props: true
     },
-
     {
-        path: "/admin",
-        name: "productbook",
-        component: ProductBook,
+        path: "/admin/login",
+        name: "AdminLogin",
+        component: AdminLogin,
     },
     {
-        path: "/:pathMatch(.*)*",
-        name: "notfound",
-        component: () => import("@/views/NotFound.vue"),
+        path: "/admin/adminPage",
+        name: "AdminPage",
+        component: AdminPage,
     },
     {
         path: "/products/:id",

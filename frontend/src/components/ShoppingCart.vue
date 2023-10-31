@@ -56,14 +56,6 @@
                   </td>
                 </tr>
               </tbody>
-              <!-- <tfoot>
-                  <tr>
-                    <td colspan="5" class="text-right">Tổng tiền:</td>
-                    <td class="text-right font-weight-bold">
-                      {{ getTotalAmount }}
-                    </td>
-                  </tr>
-                </tfoot> -->
             </table>
           </div>
         </div>

@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const productsRouter = require("./app/router/product.route");
-const usersRouter = require("./app/router/user.route");
+const productsRoutes = require("./app/routes/product.route");
+const usersRoutes = require("./app/routes/user.route");
+const adminRoutes = require("./app/routes/admin.route");
 const ApiError = require("./app/api-error");
 
 const app = express();
@@ -9,9 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/products", productsRouter);
-app.use("/api/users", usersRouter);
-
+app.use("/api/products", productsRoutes);
+app.use("/api/users", usersRoutes);
+app.use("/api/admins", adminRoutes);
 //handle 404 response
 app.use((req, res, next) => {
     return next(new ApiError(404, "Resource not found"));
@@ -25,7 +26,7 @@ app.use((error, req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to product book application."});
+    res.json({ message: "Welcome to food store application."});
 });
 
 module.exports = app;

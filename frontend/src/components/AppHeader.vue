@@ -3,8 +3,8 @@
       <!-- <a href="/admin" class="navbar-brand"  v-if="this.local_user.role != 'user'"
         ><i class="fas fa-home"></i>
       </a> -->
-      <div href="#" class="navbar-brand">Đặc sản Đồng Tháp</div>
       <div class="mr-auto navbar-nav">
+        
         <li class="nav-item">
           <router-link to="/" class="nav-link"> Trang Chủ </router-link>
           <router-link
@@ -84,6 +84,10 @@
   .nav-link {
     float: left;
     font-size: 20px;
+  }
+  .navbar-brand{
+    width: 25px;
+    height: 50px;
   }
   </style>
   

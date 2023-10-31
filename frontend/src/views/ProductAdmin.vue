@@ -132,22 +132,48 @@
   </script>
   
   <style scoped>
-  .page {
-    float: left;
-    max-width: 1200px;
-  }
-  
-  .product_edit {
-    border-radius: 3px;
-    border: 1px solid #ccc;
-  }
-  
-  .button_add {
-    margin-right: 30px;
-  }
-  
-  .header {
-    max-width: 100%;
-  }
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card-title {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  margin: 0;
+}
+
+.button_add,
+.product_edit {
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.button_add:hover,
+.product_edit:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.product_edit {
+  margin-top: 10px;
+}
+
+.product-list-item {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.product-list-item:hover {
+  background-color: #f5f5f5;
+}
   </style>
   

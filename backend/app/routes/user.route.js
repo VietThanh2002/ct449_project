@@ -12,6 +12,12 @@ router.route("/:id")
     .get(users.findOne)
     .put(users.update)
     .delete(users.delete);
+
 router.route("/login")
     .post(users.login);
+
+
+    // router.route("/registration")
+    // .post(users.registration)
+    
 module.exports = router;
