@@ -1,56 +1,33 @@
 <template>
-    <div>
-      <AppHeaderVue />
-    </div>
+  <div>
+    <AppHeaderVue />
     <section>
       <div class="container">
+        <P class="m-2 p-2 text-center display-5">Giỏ hàng</P>
         <div class="row">
           <div class="col">
-            <table class="table table-borderd table-striped">
-              <thead>
+            <table class="table table-group-divider table-hover">
+              <thead class="text-center">
                 <th>STT</th>
                 <th>Hình đại diện</th>
                 <th>Tên sản phẩm</th>
                 <th>Giá</th>
                 <th>Số lượng</th>
                 <th>Thành tiền</th>
-                <th>Xoa</th>
+                <th>Xóa</th>
               </thead>
-              <tbody>
-                <tr
-                  v-for="(product, index) in products"
-                  :key="product._id"
-                  :class="{ active: index === activeIndex }"
-                >
+              <tbody class="text-center">
+                <tr v-for="(product, index) in products" :key="product._id">
                   <td>{{ index + 1 }}</td>
                   <td>
-                    <img
-                      :src="product.img"
-                      alt=""
-                      class="product-item-in-cart-img"
-                    />
+                    <img :src="product.img" alt="" class="product-item-in-cart-img" />
                   </td>
                   <td>{{ product.name }}</td>
-                  <td class="text-right">
-                    {{ product.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} đ
-                  </td>
+                  <td class="text-right">{{ formatPrice(product.price) }}</td>
                   <td class="text-right">{{ product.amount }}</td>
-                  <td class="text-right">
-                    {{
-                      `${product.price * product.amount}`.replace(
-                        /\B(?=(\d{3})+(?!\d))/g,
-                        ","
-                      )
-                    }}
-                    đ
-                  </td>
+                  <td class="text-right">{{ formatPrice(product.price * product.amount) }}</td>
                   <td>
-                    <button
-                      v-if="product._id"
-                      type="button"
-                      class="ml-2 btn btn-danger"
-                      @click="deleteProduct(index)"
-                    >
+                    <button v-if="product._id" type="button" class="ml-2 btn btn-danger" @click="deleteProduct(index)">
                       Xóa
                     </button>
                   </td>
@@ -61,59 +38,54 @@
         </div>
         <div class="row">
           <div class="col">
-            <h4 class="text-right">
-              Tổng số tiền:
-              {{ `${totalMoney().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} đ` }}
-            </h4>
+            <h4 class="text-right">Tổng số tiền: {{ formatPrice(totalMoney) }}</h4>
           </div>
         </div>
       </div>
     </section>
-  </template>
-  
-  <script>
-  import AppHeaderVue from "./AppHeader.vue";
-  export default {
-    components: {
-      AppHeaderVue,
+  </div>
+</template>
+
+<script>
+import AppHeaderVue from "./AppHeader.vue";
+
+export default {
+  components: {
+    AppHeaderVue,
+  },
+  name: "ShoppingCart",
+  data() {
+    return {
+      products: [],
+    };
+  },
+  methods: {
+    formatPrice(price) {
+      const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return formattedPrice + " đ";
     },
-    name: "ShoppingCart",
-    data() {
-      return {
-        products: [],
-      };
+    deleteProduct(index) {
+      this.products.splice(index, 1);
+      const saveobject = JSON.stringify(this.products);
+      localStorage.setItem("cart", saveobject);
     },
-  
-    methods: {
-      deleteProduct(index) {
-        const filteredProducts = this.products.filter(
-          (product) => product._id !== this.products[index]._id
-        );
-        this.products = filteredProducts;
-        const saveobject = JSON.stringify(filteredProducts);
-        localStorage.setItem("cart", saveobject);
-      },
-      totalMoney() {
-        let total = 0;
-        for (let i = 0; i < this.products.length; i++) {
-          total += this.products[i].price * this.products[i].amount;
-        }
-        console.log(total);
-        return `${total}`;
-      },
+  },
+  computed: {
+    totalMoney() {
+      return this.products.reduce((total, product) => total + product.price * product.amount, 0);
     },
-    mounted() {
-      const listLoalCart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-      this.products = listLoalCart;
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .product-item-in-cart-img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-  }
-  </style>
-  
+  },
+  mounted() {
+    const listLocalCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    this.products = listLocalCart;
+  },
+};
+</script>
+
+<style scoped>
+.product-item-in-cart-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+</style>

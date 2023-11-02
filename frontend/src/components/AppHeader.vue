@@ -58,21 +58,18 @@
       };
     },
     methods: {
-      logout() {
-        localStorage.clear();
-        this.$router.push({ name: "LoginPage" });
-      },
-      handleLogout() {
-        localStorage.clear();
-        localStorage.removeItem("user_login");
-        this.$router.push({ name: "LoginPage" });
-      },
+     handleLogout() {
+      localStorage.clear();
+      localStorage.removeItem("user_login");
+      this.carts = []; // Cập nhật state giỏ hàng
+      this.local_user = { role: "" }; // Cập nhật state thông tin người dùng
+      this.$router.push({ name: "LoginPage" });
+    }
     },
     mounted() {
-      const listLoalCart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-      this.carts = listLoalCart;
-      const user = JSON.parse(localStorage.getItem("user_login"));
-      console.log(user);
+      const listLocalCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      this.carts = listLocalCart;
+      const user = JSON.parse(localStorage.getItem("user_login")) || { role: "" };
       this.local_user = user;
     },
   };

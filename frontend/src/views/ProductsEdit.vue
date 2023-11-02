@@ -1,8 +1,8 @@
 <template>
-    <!-- <div>
-      <AppHeaderVue />
-    </div> -->
-    <div v-if="product" class="page">
+    <div>
+      <AdminHeaderVue />
+    </div>
+    <div v-if="product" class="page" style="height: 200px;">
       <h4 v-if="product._id" class="text-center mt-3">Hiệu chỉnh Sản phẩm</h4>
       <h4 v-if="!product._id" class="text-center mt-3">Thêm Sản Phẩm</h4>
       <ProductForm
@@ -16,13 +16,13 @@
   </template>
   
   <script>
-  import AppHeaderVue from "../components/AppHeader.vue";
+  import AdminHeaderVue from "../components/AdminHeader.vue";
   import ProductForm from "@/components/ProductForm.vue";
   import ProductService from "@/services/product.service";
   export default {
     components: {
       ProductForm,
-      AppHeaderVue,
+      AdminHeaderVue,
     },
     props: {
       id: { type: String, required: true },
@@ -81,7 +81,7 @@
           }
           await ProductService.create(data);
           this.message = "Thêm mới sản phẩm thành công.";
-          this.$router.push({ name: "productbook" });
+          this.$router.push({ name: "" });
         } catch (error) {
           console.log(error);
         }

@@ -28,8 +28,8 @@ const { ObjectId } = require("mongodb");
     async create(payload) {
         const user = this.extractUserData(payload);
         const result = await this.User.findOneAndUpdate(
-            { email: user.email },
-            { $set: user },
+            user,
+            { $set: { "role": "user" } },
             { returnDocument: "after", upsert: true }
         );
         return result.value;

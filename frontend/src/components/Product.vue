@@ -16,7 +16,7 @@
           {{ product.name }}
         </div>
           <div class="product_price">
-            {{ product.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} Đồng
+            {{  formatPrice(product.price) }}
           </div>
       <div class="text-center">
         <button class="btn_cart" @click="addProductToCart(index)">
@@ -44,33 +44,41 @@ export default {
     activeIndex: { type: Number, default: -1 },
   },
   methods: {
-    async addProductToCart(index) {
-      console.log(this.products);
-      const saveLocalCart = JSON.parse(localStorage.getItem("cart") ?? "[]");
-      for (const item of saveLocalCart) {
-        if (item._id === this.products[index]._id) {
-          item.amount++;
-          const saveobject = JSON.stringify(saveLocalCart);
-          localStorage.setItem("cart", saveobject);
-          alert("Đã thêm sản phẩm vào giỏ hàng!!");
-          return;
-        }
-      }
-      const temp = {
-        _id: this.products[index]._id,
-        name: this.products[index].name,
-        img: this.products[index].img,
-        price: this.products[index].price,
-        des: this.products[index].des,
-        amount: 1,
-      };
-      console.log(temp);
-      saveLocalCart.push(temp);
-      const saveobject = JSON.stringify(saveLocalCart);
+    formatPrice(price) {
+      const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return formattedPrice + "đ";
+    },
+    updateLocalStorage(cart) {
+      const saveobject = JSON.stringify(cart);
       localStorage.setItem("cart", saveobject);
-      alert("Sản phẩm vừa được thêm vào giỏ hàng");
+    },
+    showAlert(message) {
+      alert(message);
+    },
+    async addProductToCart(index) {
+      const saveLocalCart = JSON.parse(localStorage.getItem("cart") ?? "[]"); // get list product from local
+      const existingProduct = saveLocalCart.find(item => item._id === this.products[index]._id); //find product from cart 
+      // existingProduct chứa thông tin sản phẩm
+      if (existingProduct) {
+        existingProduct.amount++;
+        this.updateLocalStorage(saveLocalCart);
+        this.showAlert("Đã thêm sản phẩm vào giỏ hàng!!");
+      } else {
+        const newProduct = {
+          _id: this.products[index]._id,
+          name: this.products[index].name,
+          img: this.products[index].img,
+          price: this.products[index].price,
+          des: this.products[index].des,
+          amount: 1,
+        };
+        saveLocalCart.push(newProduct);
+        this.updateLocalStorage(saveLocalCart);
+        this.showAlert("Sản phẩm vừa được thêm vào giỏ hàng");
+      }
     },
   },
+
 };
 </script>
 

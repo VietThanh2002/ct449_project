@@ -52,7 +52,8 @@
   </template>
   
   <script>
-  import UserService from "../services/user.service";
+import * as Yup from 'yup';
+import UserService from "../services/user.service";
 
   export default {
     data() {
