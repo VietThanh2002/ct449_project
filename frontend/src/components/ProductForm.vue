@@ -1,55 +1,56 @@
 <template>
     <Form
-        class=" bg-secondary p-3"
+        class=" bg-light p-3 shadow"
         @submit="submitProduct"
         :validation-schema="productFormSchema"
+        style="height: 380px;"
     >
         <div class="form-group">
-            <label for="name">Tên sản phẩm</label>
+            <label for="name" class="m-2">Tên sản phẩm</label>
                 <Field
                 name="name"
                 type="text"
-                class="form-control"
+                class="form-control m-2 "
                 v-model="productLocal.name"
             />
             <ErrorMessage name="name" class="error-feedback" />
         </div>
         <div class="form-group">
-            <label for="link">Link Ảnh</label>
+            <label for="link" class="m-2">Link ảnh sản phẩm</label>
                 <Field
                 name="link"
                 type="text"
-                class="form-control"
+                class="form-control m-2 "
                 v-model="productLocal.img"
             />
             <ErrorMessage name="link" class="error-feedback" />
         </div>
         <div class="form-group">
-            <label for="price">Giá bán</label>
+            <label for="price" class="m-2">Giá bán</label>
                 <Field
                 name="price"
                 type="text"
-                class="form-control"
+                class="form-control m-2 "
                 v-model="productLocal.price"
             />
             <ErrorMessage name="price" class="error-feedback" />
         </div>
             <div class="form-group">
-                <label for="description">Mô tả</label>
+                <label for="description" class="m-2">Mô tả</label>
                 <Field
                 name="description"
                 type="text"
-                class="form-control"
+                class="form-control m-2 "
                 v-model="productLocal.des"
             />
             <ErrorMessage name="description" class="error-feedback" />
         </div>
         <div class="form-group">
-            <button v-if="productLocal._id" class="btn btn-primary">Lưu</button>
+            <button v-if="productLocal._id" class="btn btn-primary  float-start">Cập nhật</button>
             <button
                 v-if="productLocal._id"
                 type="button"
-                class="ml-2 btn btn-danger"
+                class="pl-2 btn btn-danger float-end"
                 @click="deleteProduct"
             >
                 Xóa
@@ -116,4 +117,5 @@ export default {
 
 <style scoped>
 @import "@/assets/form.css";
+
 </style>

@@ -1,8 +1,8 @@
 <template>
     <div class="admin-header">
-      <router-link to="/">Trang Chủ</router-link>
+      <!-- <router-link to="/">Trang Chủ</router-link> -->
       <div v-if="isLoggedIn">
-        <span>Xin chào, {{ adminName }}!</span>
+        <span>Xin chào, Admin {{ adminName }}!</span>
         <button @click="logout">Đăng Xuất</button>
       </div>
     </div>
@@ -39,7 +39,7 @@
     color: #fff;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
   }
   </style>

@@ -34,3 +34,7 @@ label {
 .error-feedback {
     color: red;
 }
+
+Form {
+    height: 400px;
+}

@@ -19,7 +19,7 @@ export default {
     <div class="input-group w-50">
         <input
             type="text"
-            class="form-control"
+            class="form-control m-2"
             placeholder="Nhập thông tin cần tìm"
             :value="modelValue"
             @input="updateModelValue"
@@ -27,11 +27,11 @@ export default {
         />
         <div class="input-group-append">
             <button
-                class="btn btn-outline-secondary"
+                class="btn btn-outline-secondary m-2"
                 type="button"
                 @click="submit"
             >
-                <i class="fas fa-search"></i> Tìm kiếm
+                <i class="fas fa-search"></i>
             </button>
         </div>
     </div>

@@ -2,21 +2,21 @@
   <AdminHeader />
     <div class="page row">
 
-      <div class="col-md-10 mt-3">
+      <div class="col-lg-10 mt-3">
         <InputSearch v-model="searchText" />
       </div>
-      <div class="mt-3 col-md-10 justify-content-around align-items-center">
+      <div class="mt-3 col-md-12 justify-content-around align-items-center">
 
-        <button class="btn btn-sm btn-success button_add" @click="goToAddProduct">
+        <button class="btn btn-sm btn-success float-start button_add" @click="goToAddProduct">
           <i class="fas fa-plus"></i> Thêm sản phẩm
         </button>
   
-        <button class="btn btn-sm btn-danger" @click="removeAllProducts">
+        <button class="btn btn-sm btn-danger float-end" @click="removeAllProducts">
           <i class="fas fa-trash"></i> Xóa tất cả sản phẩm
         </button>
       </div>
-      <div class="mt-3 col-md-4">
-        <h4>Danh Sách Sản Phẩm</h4>
+      <div class="mt-3 col-md-12">
+
         <ProductList
           v-if="filteredProductsCount > 0"
           :products="filteredProducts"
@@ -34,7 +34,7 @@
               params: { id: activeProduct._id },
             }"
           >
-            <button class="mt-2 badge-info p-1 product_edit">
+            <button class="mt-2 bg-info p-1 product_edit">
               Chỉnh sửa sản phẩm
             </button>
           </router-link>
@@ -44,7 +44,7 @@
   </template>
   
   <script>
-  import AdminHeader from "../components/AdminHeader.vue";
+  import AdminHeader from "@/components/AdminHeader.vue";
   import ProductCard from "@/components/ProductCard.vue";
   import InputSearch from "@/components/InputSearch.vue";
   import ProductList from "@/components/ProductList.vue";

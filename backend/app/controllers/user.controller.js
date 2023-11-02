@@ -49,11 +49,10 @@ exports.login = async (req, res, next) => {
                     email: document[0].email,
                     role: document[0].role
                 },
-                process.env.SECRET_KEY, // Thay "your-secret-key" bằng một chuỗi bí mật an toàn hơn
+                process.env.SECRET_KEY, 
                 { expiresIn: "1h" } // Thời gian hết hạn của mã thông báo, ví dụ: 1 giờ
             );
 
-            
             // Gửi mã thông báo JWT về client
             return res.send({  message: "Đăng nhập thành công!", token: token });
         }

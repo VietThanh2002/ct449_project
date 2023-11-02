@@ -63,6 +63,7 @@
         this.$router.push({ name: "LoginPage" });
       },
       handleLogout() {
+        localStorage.clear();
         localStorage.removeItem("user_login");
         this.$router.push({ name: "LoginPage" });
       },
