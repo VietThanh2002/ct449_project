@@ -51,14 +51,7 @@
           data-mdb-ripple-color="dark"
           ><i class="fab fa-youtube"></i
       ></a>
-      <!-- Github -->
-      <a
-          class="btn-link btn-floating btn-lg text-white m-2"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-github"></i
-      ></a>
+
       </section>
       <!-- Section: Social media -->
   </div>
