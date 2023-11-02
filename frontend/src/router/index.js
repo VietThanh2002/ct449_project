@@ -46,6 +46,17 @@ const routes = [
         path: "/admin/adminPage",
         name: "AdminPage",
         component: AdminPage,
+        beforeEnter: (to, from, next) => {
+          // Kiểm tra xem người dùng đã đăng nhập là admin hay không
+          const adminLogin = localStorage.getItem("admin_login");
+          if (adminLogin) {
+            // Nếu đăng nhập là admin, cho phép truy cập trang AdminPage
+            next();
+          } else {
+            // Nếu không đăng nhập là admin, chuyển hướng đến trang đăng nhập admin
+            next({ name: "AdminLogin" });
+          }
+        },
     },
     {
         path: "/products/:id",

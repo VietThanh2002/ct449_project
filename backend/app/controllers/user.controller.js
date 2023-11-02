@@ -1,11 +1,23 @@
 const UserService = require("../services/user.service");
 const MongoDB = require("../utils/mongodb.util");
 const ApiError = require("../api-error");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 
 //Tạo và lưu trữ một user mới
 exports.create = async (req, res, next) => {
     if (!req.body?.email) {
         return next(new ApiError(400, "Email không được để trống"));
+    }
+    if (!req.body?.password) {
+        return next(new ApiError(400, "Không đươc để trống mật khẩu"));
+    }
+    if (!req.body?.phone) {
+        return next(new ApiError(400, "Không đươc để trống số điện thoại"));
+    }
+    if (!req.body?.address) {
+        return next(new ApiError(400, "Không đươc để trống địa chỉ"));
     }
 
     try {
@@ -20,25 +32,37 @@ exports.create = async (req, res, next) => {
 }; 
 
 exports.login = async (req, res, next) => {
-    if (!req.body?.email) {
-        return next(new ApiError(400, "Email không được để trống"));
+    // Kiểm tra đầu vào của yêu cầu ở đây
+    if (!req.body?.email || !req.body?.password) {
+        return next(new ApiError(400, "Email hoặc mật khẩu không hợp lệ"));
     }
 
     try {
         const userService = new UserService(MongoDB.client);
         const document = await userService.login(req.body);
-        const data = {
-            id: document[0]._id,
-            role: document[0].role,
-            createAt: document[0].createdAt,
-        }
+
         if (document[0].email === req.body.email && document[0].password === req.body.password) {
-            return res.send(data);
+            // Tạo mã thông báo JWT
+            const token = jwt.sign(
+                {
+                    id: document[0]._id,
+                    email: document[0].email,
+                    role: document[0].role
+                },
+                process.env.SECRET_KEY, // Thay "your-secret-key" bằng một chuỗi bí mật an toàn hơn
+                { expiresIn: "1h" } // Thời gian hết hạn của mã thông báo, ví dụ: 1 giờ
+            );
+
+            
+            // Gửi mã thông báo JWT về client
+            return res.send({  message: "Đăng nhập thành công!", token: token });
         }
-        return res.send({});
+
+        // Xử lý trường hợp đăng nhập không thành công ở đây
+        return res.send({ message: "Đăng nhập thất bại!"});
     } catch (error) {
         return next(
-            new ApiError(500, "Xảy ra lỗi khi login")
+            new ApiError(500, "Xảy ra lỗi khi đăng nhập")
         );
     }
 };

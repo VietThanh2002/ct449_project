@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-center text-white mt-4" style="background-color: #607D8B">
+  <footer class="text-center text-white mt-5" style="background-color: #607D8B">
   
   <hr class="text-dark">
   

@@ -1,6 +1,5 @@
 <template>
-
-    <p class="card-title text-center m-2 p-2 text-center bg-secondary">Wellcome Admin</p>
+  <AdminHeader />
     <div class="page row">
 
       <div class="col-md-10 mt-3">
@@ -45,7 +44,7 @@
   </template>
   
   <script>
-  import AppHeader from "../components/AppHeader.vue";
+  import AdminHeader from "../components/AdminHeader.vue";
   import ProductCard from "@/components/ProductCard.vue";
   import InputSearch from "@/components/InputSearch.vue";
   import ProductList from "@/components/ProductList.vue";
@@ -56,7 +55,7 @@
       ProductCard,
       InputSearch,
       ProductList,
-      AppHeader,
+      AdminHeader,
     },
     // Đoạn mã xử lý đầy đủ sẽ trình bày bên dưới
     data() {

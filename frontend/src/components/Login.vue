@@ -7,7 +7,7 @@
           </div>
           <div class="card-body">
             <form @submit.prevent="login()">
-              <div class="input-group form-group">
+              <div class="input-group form-group m-2">
                 <input
                   type="email"
                   class="form-control"
@@ -20,7 +20,7 @@
                   {{ errors.email }}
                 </div>
               </div>
-              <div class="input-group form-group">
+              <div class="input-group form-group m-2">
                 <input
                   type="password"
                   class="form-control"
@@ -40,7 +40,7 @@
           </div>
           <div class="card-footer">
             <div class="d-flex justify-content-center links">
-              <p>
+              <p class="text-center">
                 Bạn chưa có tài khoản?
                 <router-link to="/register">Đăng ký ngay</router-link>
               </p>
@@ -53,6 +53,7 @@
   
   <script>
   import UserService from "../services/user.service";
+
   export default {
     data() {
       return {
@@ -90,13 +91,13 @@
           console.log(userLogin);
           const local_login = JSON.stringify(userLogin);
           localStorage.setItem("user_login", local_login);
-          if (userLogin.role === "user") {
+          // if (userLogin.role === "user") {
             this.$router.push({ name: "HomePage" });
-          } else if (userLogin.role === "admin") {
-            this.$router.push({ name: "AdminPage" });
-          } else {
-            alert("Xin lỗi! Không có tài khoản này!");
-          }
+          // } else if (userLogin.role === "admin") {
+          //   this.$router.push({ name: "AdminPage" });
+          // } else {
+          //   alert("Xin lỗi! Không có tài khoản này!");
+          // }
         }
       },
     },
@@ -112,6 +113,7 @@
     width: 300px;
   }
   .links a {
+    text-decoration: none;
     margin-left: 4px;
   }
   </style>

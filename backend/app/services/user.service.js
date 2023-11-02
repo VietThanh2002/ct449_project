@@ -11,8 +11,10 @@ const { ObjectId } = require("mongodb");
 
         const user = {
             email: payload.email,
-            role: payload.role,
             password: payload.password,
+            address: payload.address,
+            phone: payload.phone,
+            role: payload.role,
             createdAt: createdAt
         };
         
@@ -26,8 +28,8 @@ const { ObjectId } = require("mongodb");
     async create(payload) {
         const user = this.extractUserData(payload);
         const result = await this.User.findOneAndUpdate(
-            user,
-            { $set: { "role": "user" } },
+            { email: user.email },
+            { $set: user },
             { returnDocument: "after", upsert: true }
         );
         return result.value;
@@ -59,10 +61,10 @@ const { ObjectId } = require("mongodb");
         const filter = {
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         };
-        const update = this.extractUserData(payload);
+        const updateData = this.extractUserData(payload);
         const result = await this.User.findOneAndUpdate(
             filter,
-            { $set: update},
+            { $set: updateData },
             { returnDocument: "after" }
         );
         return result.value;

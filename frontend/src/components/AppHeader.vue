@@ -1,50 +1,51 @@
 <template>
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <!-- <a href="/admin" class="navbar-brand"  v-if="this.local_user.role != 'user'"
-        ><i class="fas fa-home"></i>
-      </a> -->
-      <div class="mr-auto navbar-nav">
+  <div>
+    <nav class="navbar shadow" style="background-color: lightblue;">
+  
+      <div class="mr-auto navbar-nav float-start">
         
-        <li class="nav-item">
+        <li class="nav-item fw-bold">
           <router-link to="/" class="nav-link"> Trang Chủ </router-link>
+
           <router-link
             to="/product"
             class="nav-link"
-            v-if="this.local_user.role != 'admin'"
           >
             Sản Phẩm
           </router-link>
+
           <router-link
             to="/introduce"
             class="nav-link"
-            v-if="this.local_user.role != 'admin'"
           >
             Giới Thiệu
           </router-link>
         </li>
       </div>
-      <div class="navbar-nav">
+      <div class="navbar-nav float-end">
         <li class="nav-item">
-          <router-link to="/login" class="nav-link">
-              <button class="btn btn-secondary">đăng nhập</button>
-          </router-link>
+          
           <router-link to="/shopping_cart" class="nav-link">
-            <i class="fas fa-cart-shopping"></i>
-            Giỏ Hàng
+            <button class="btn"><i class=" fas fa-cart-shopping"></i></button>
           </router-link>
+
+          <router-link to="/login" class="nav-link">
+              <button class="btn "><i class="fa-solid fa-user"></i></button>
+          </router-link>
+
           <router-link
             to="/"
             class="nav-link"
             v-if="this.local_user.role != ''"
             @click="handleLogout"
           >
-            Đăng xuất
-            <i class="fa-solid fa-right-from-bracket"></i>
+           <button class="btn"><i class="fa-solid fa-right-from-bracket"></i></button>
           </router-link>
         </li>
       </div>
     </nav>
-  </template>
+  </div>
+</template>
   
   <script>
   export default {
@@ -82,8 +83,10 @@
   }
   
   .nav-link {
+    color: aliceblue;
     float: left;
     font-size: 20px;
+    margin: 10px;
   }
   .navbar-brand{
     width: 25px;

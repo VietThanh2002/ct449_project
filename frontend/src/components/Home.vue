@@ -2,31 +2,36 @@
     <div>
       <AppHeaderVue />
     </div>
-    <body>
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                <img src="../assets/img/banner1.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                <img src="../assets/img/banner2.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                <img src="../assets/img/banner-01.jpg" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </button>
+    <div style="margin-top: 20px;">
+      <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../assets/img/bn1.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../assets/img/bn2.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="../assets/img/bn3.jpg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
         <h4 class="text-center mt-2">SẢN PHẨM NỔI BẬT</h4>
-        <div class="page row">
-            <div class="mt-3 col-md-6 shadow">
+        <div class="page">
+            <div class="">
                 <ProductList
                     v-if="filteredProductsCount > 0"
                     :products="filteredProducts"
@@ -39,14 +44,14 @@
         <div>
             <AppFooterVue />
         </div>
-    </body>
+      </div>
   
   </template>
   
   <script>
   import AppHeaderVue from "./AppHeader.vue";
-  import AppFooterVue from "./AppFooter.vue"
   import ProductList from "../components/Product.vue";
+  import  AppFooterVue from "./AppFooter.vue";
   import ProductService from "../services/product.service";
   
   export default {
@@ -101,15 +106,16 @@
   
 
   .carousel-item img {
-    height: 500px;
+    height: 400px;
     object-fit: cover;
     display: block;
     width: 1200px;
   }
   
   .page {
-    float: center;
-    max-width: 1200;
+   
+    max-width: 1200px;
   }
+
   </style>
   

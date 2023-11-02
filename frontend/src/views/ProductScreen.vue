@@ -2,27 +2,28 @@
     <div>
       <AppHeaderVue />
     </div>
-    <div class="page row">
-      <div class="mt-3 col-md-8">
-        <h4 class="mb-3">Sản Phẩm</h4>
-        <ProductList
-          v-if="filteredProductsCount > 0"
-          :products="filteredProducts"
-          v-model:activeIndex="activeIndex"
-        />
-        <p v-else>Không có sản phẩm nào.</p>
-      </div>
-    </div>
-    <div class="">
+    <h4 class="mb-3 text-center">Sản Phẩm</h4>
+   
+        <div class="page text-center">
+            <div class="" style="margin-bottom: 200px;">
+            <ProductList
+              v-if="filteredProductsCount > 0"
+              :products="filteredProducts"
+              v-model:activeIndex="activeIndex"
+            />
+            <p v-else>Không có sản phẩm nào.</p>
+          </div>
+        </div>
+    <div>
         <AppFooterVue />
     </div>
   </template>
   
   <script>
   import AppHeaderVue from "../components/AppHeader.vue";
-  import ProductList from "../components/ProductList.vue";
+  import ProductList from "../components/Product.vue";
   import ProductService from "../services/product.service";
-  import AppFooterVue from "../components/AppFooter.vue"
+  import AppFooterVue from "../components/AppFooter.vue";
   
   export default {
     components: {
@@ -73,8 +74,8 @@
   
   <style scoped>
   .page {
-    float: center;
-    max-width: 1200;
-  }
+   
+   max-width: 1200px;
+ }
   </style>
   

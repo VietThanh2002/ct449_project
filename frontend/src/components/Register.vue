@@ -6,8 +6,9 @@
           <h3>Đăng Ký</h3>
         </div>
         <div class="card-body">
-          <form @submit.prevent="login()">
-            <div class="input-group form-group">
+          <form @submit.prevent="register()">
+            <!-- Trường Email -->
+            <div class="input-group form-group m-2">
               <input
                 type="email"
                 class="form-control"
@@ -19,7 +20,8 @@
                 {{ errors.email }}
               </div>
             </div>
-            <div class="input-group form-group">
+            <!-- Trường Mật khẩu -->
+            <div class="input-group form-group m-2">
               <input
                 type="password"
                 class="form-control"
@@ -31,7 +33,8 @@
                 {{ errors.password }}
               </div>
             </div>
-            <div class="input-group form-group">
+            <!-- Trường Nhập lại mật khẩu -->
+            <div class="input-group form-group m-2">
               <input
                 type="password"
                 class="form-control"
@@ -43,7 +46,34 @@
                 {{ errors.repassword }}
               </div>
             </div>
-            <div class="form-group text-center">
+            <!-- Trường Số điện thoại -->
+            <div class="input-group form-group m-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Nhập số điện thoại"
+                v-model="user.phone"
+                :class="{ 'is-invalid': errors.phone }"
+              />
+              <div class="invalid-feedback" v-if="errors.phone">
+                {{ errors.phone }}
+              </div>
+            </div>
+            <!-- Trường Địa chỉ -->
+            <div class="input-group form-group m-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Nhập địa chỉ"
+                v-model="user.address"
+                :class="{ 'is-invalid': errors.address }"
+              />
+              <div class="invalid-feedback" v-if="errors.address">
+                {{ errors.address }}
+              </div>
+            </div>
+            <!-- Nút Đăng ký -->
+            <div class="form-group m-2 text-center">
               <input type="submit" value="Đăng Ký" class="btn btn-primary" />
             </div>
           </form>
@@ -61,6 +91,7 @@
   </div>
 </template>
 
+
 <script>
 import * as Yup from 'yup';
 import UserService from "../services/user.service";
@@ -72,11 +103,15 @@ export default {
         email: "",
         password: "",
         repassword: "",
+        phone: "",
+        address: "",
       },
       user: {
         email: "",
         password: "",
         repassword: "",
+        phone: "",
+        address: "",
       },
     };
   },
@@ -88,6 +123,8 @@ export default {
         repassword: Yup.string()
           .oneOf([Yup.ref('password'), null], 'Mật khẩu nhập lại không khớp')
           .required('Mật khẩu nhập lại không được để trống'),
+       phone: Yup.string().required('Số điện thoại không được để trống').max(10, 'Số điện thoại không được quá 10 số'),
+        address: Yup.string().required('Địa chỉ không được để trống'),
       });
 
       try {
@@ -96,6 +133,8 @@ export default {
           email: '',
           password: '',
           repassword: '',
+          phone: '',
+          address: '',
         };
         return true;
       } catch (error) {
@@ -107,7 +146,7 @@ export default {
         return false;
       }
     },
-    async login() {
+    async register() {
       if (await this.validate()) {
         try {
           await UserService.create(this.user);
@@ -129,6 +168,7 @@ export default {
   width: 300px;
 }
 .links a {
+  text-decoration: none;
   margin-left: 4px;
 }
 </style>

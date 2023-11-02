@@ -25,7 +25,7 @@ exports.login = async (req, res, next) => {
 
     try {
         const adminService = new AdminService(MongoDB.client);
-        const document = await adminService.findByCredentials(req.body.name, req.body.password);
+        const document = await adminService.findByCredentials(req.body.name, req.body.password); //.promise
         if (!document) {
             return res.send({});
         }
@@ -35,7 +35,7 @@ exports.login = async (req, res, next) => {
             createAt: document.createdAt,
         };
         return res.send(data);
-        console.log(req.body);
+        // console.log(req.body);
     } catch (error) {
         return next(
             new ApiError(500, "Xảy ra lỗi khi đăng nhập")
