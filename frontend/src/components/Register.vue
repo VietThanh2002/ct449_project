@@ -150,6 +150,7 @@ export default {
       if (await this.validate()) {
         try {
           await UserService.create(this.user);
+          confirm("Đăng ký tài khoản thành công!!");
           this.$router.push({ name: "LoginPage" });
         } catch (error) {
           console.log(error);

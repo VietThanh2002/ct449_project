@@ -50,7 +50,7 @@ exports.login = async (req, res, next) => {
                     role: document[0].role
                 },
                 process.env.SECRET_KEY, 
-                { expiresIn: "1h" } // Thời gian hết hạn của mã thông báo, ví dụ: 1 giờ
+                { expiresIn: "1h" } // Thời gian hết hạn của mã thông báo 1 giờ
             );
 
             // Gửi mã thông báo JWT về client

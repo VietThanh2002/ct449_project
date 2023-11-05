@@ -54,16 +54,16 @@
         try {
           await ProductService.update(this.product._id, data);
           this.message = "Sản phẩm được cập nhật thành công.";
-          this.$router.push({ name: "productbook" });
         } catch (error) {
           console.log(error);
         }
       },
       async deleteProduct() {
-        if (confirm("Bạn muốn xóa Sản phẩm này?")) {
+        if (confirm("Bạn muốn xóa sản phẩm này?")) {
           try {
             await ProductService.delete(this.product._id);
-            this.$router.push({ name: "productbook" });
+            
+            this.$router.push({ name: "AdminPage" });
           } catch (error) {
             console.log(error);
           }
@@ -77,11 +77,11 @@
             data.price === "" ||
             data.des === ""
           ) {
-            alert("Bạn phải nhập hết tất cả các trường");
+            alert("Bạn phải nhập đầu đủ các thông tin!");
           }
           await ProductService.create(data);
           this.message = "Thêm mới sản phẩm thành công.";
-          this.$router.push({ name: "" });
+          // this.$router.push({ name: "" });
         } catch (error) {
           console.log(error);
         }

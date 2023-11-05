@@ -78,12 +78,11 @@
       },
       async login() {
         if (this.validate()) {
-        console.log("Admin:",this.admin);
           const adminLogin = await AdminService.login(this.admin);
           console.log(adminLogin);
           const local_login = JSON.stringify(adminLogin);
           localStorage.setItem("admin_login", local_login);
-          if (adminLogin) {
+          if (adminLogin.role ==="admin") {
             this.$router.push({ name: "AdminPage" });
           } else {
             alert("Đăng nhập không thành công. Vui lòng kiểm tra lại thông tin đăng nhập.");

@@ -53,6 +53,7 @@
   
   <script>
 import * as Yup from 'yup';
+
 import UserService from "../services/user.service";
 
   export default {
@@ -66,7 +67,7 @@ import UserService from "../services/user.service";
           email: "",
           password: "",
         },
-        users: [],
+        // users: [],
       };
     },
     methods: {
@@ -96,7 +97,7 @@ import UserService from "../services/user.service";
             this.$router.push({ name: "HomePage" });
           // } else if (userLogin.role === "admin") {
           //   this.$router.push({ name: "AdminPage" });
-          // } else {
+          // } else  {
           //   alert("Xin lỗi! Không có tài khoản này!");
           // }
         }

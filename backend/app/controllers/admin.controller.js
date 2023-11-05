@@ -27,7 +27,7 @@ exports.login = async (req, res, next) => {
         const adminService = new AdminService(MongoDB.client);
         const document = await adminService.findByCredentials(req.body.name, req.body.password); //.promise
         if (!document) {
-            return res.send({});
+            return res.send({message: "Tên đăng nhập hoặc mật khẩu không chính xác!"});
         }
         const data = {
             id: document._id,
@@ -107,12 +107,12 @@ exports.delete = async (req, res, next) => {
         if (!document) {
             return next(new ApiError(404, "Tài khoản admin không được tìm thấy"));
         }
-        return res.send({ message: "Tài khoản admin đã được xóa thành công"});
+        return res.send({ message: "Tài khoản đã được xóa thành công"});
     } catch (error) {
         return next(
             new ApiError(
                 500,
-                `Không thể xóa tài khoản admin với id=${req.params.id}`
+                `Không thể xóa tài khoản với id=${req.params.id}`
             )
         );
     }
@@ -123,11 +123,11 @@ exports.deleteAll = async (_req, res, next) => {
         const adminService = new AdminService(MongoDB.client);
         const deletedCount = await adminService.deleteAll();
         return res.send({
-            message: `${deletedCount} Tài khoản admin đã được xóa thành công`,
+            message: `${deletedCount} Tài khoản đã được xóa thành công`,
         });
     } catch (error) {
         return next(
-            new ApiError(500, "Đã xảy ra lỗi khi xóa tất cả tài khoản admin")
+            new ApiError(500, "Đã xảy ra lỗi khi xóa tất cả tài khoản")
         );
     }
 };
