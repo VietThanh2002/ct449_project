@@ -69,7 +69,7 @@
     mounted() {
       const listLocalCart = JSON.parse(localStorage.getItem("cart") || "[]");
       this.carts = listLocalCart;
-      const user = JSON.parse(localStorage.getItem("user_login")) || { role: "" };
+      const user = JSON.parse(localStorage.getItem("user_id")) || { role: "" };
       this.local_user = user;
     },
   };

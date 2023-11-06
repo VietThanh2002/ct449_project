@@ -7,6 +7,19 @@
         </div>
         <div class="card-body">
           <form @submit.prevent="register()">
+            <div class="input-group form-group m-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Vui lòng nhập họ và tên"
+                
+                v-model="user.name"
+                :class="{ 'is-invalid': errors.name }"
+              />
+              <div class="invalid-feedback" v-if="errors.name">
+                {{ errors.name }}
+              </div>
+            </div>
             <!-- Trường Email -->
             <div class="input-group form-group m-2">
               <input
@@ -100,6 +113,7 @@ export default {
   data() {
     return {
       errors: {
+        name: "",
         email: "",
         password: "",
         repassword: "",
@@ -107,6 +121,7 @@ export default {
         address: "",
       },
       user: {
+        name: "",
         email: "",
         password: "",
         repassword: "",
@@ -118,6 +133,7 @@ export default {
   methods: {
     async validate() {
       const registrationSchema = Yup.object().shape({
+        name: Yup.string().required("Tên không được để trống"),
         email: Yup.string().email('Email không hợp lệ').required('Email không được để trống'),
         password: Yup.string().required('Mật khẩu không được để trống'),
         repassword: Yup.string()
@@ -130,6 +146,7 @@ export default {
       try {
         await registrationSchema.validate(this.user, { abortEarly: false });
         this.errors = {
+          name: '',
           email: '',
           password: '',
           repassword: '',

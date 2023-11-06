@@ -10,6 +10,7 @@ const { ObjectId } = require("mongodb");
         const createdAt = new Date();
 
         const user = {
+            name: payload.name,
             email: payload.email,
             password: payload.password,
             address: payload.address,

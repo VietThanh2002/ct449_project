@@ -53,7 +53,8 @@
   
   <script>
 import * as Yup from 'yup';
-
+import {useRouter} from "vue-router"
+const router = useRouter();
 import UserService from "../services/user.service";
 
   export default {
@@ -90,16 +91,19 @@ import UserService from "../services/user.service";
       async login() {
         if (this.validate()) {
           const userLogin = await UserService.login(this.user);
-          console.log(userLogin);
-          const local_login = JSON.stringify(userLogin);
-          localStorage.setItem("user_login", local_login);
-          // if (userLogin.role === "user") {
+          // console.log(userLogin);
+          const token = JSON.stringify(userLogin.token);
+          localStorage.setItem("token", token);
+          const id = JSON.stringify(userLogin.user_id);
+          localStorage.setItem("user_id", id);
+          localStorage.setItem("role", userLogin.role);
+          if (userLogin.role === "user") {
             this.$router.push({ name: "HomePage" });
           // } else if (userLogin.role === "admin") {
           //   this.$router.push({ name: "AdminPage" });
-          // } else  {
-          //   alert("Xin lỗi! Không có tài khoản này!");
-          // }
+          } else  {
+            alert("Xin lỗi! Không có tài khoản này!");
+          }
         }
       },
     },

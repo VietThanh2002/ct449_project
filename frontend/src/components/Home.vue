@@ -97,6 +97,8 @@
     },
     mounted() {
       this.refreshList();
+      const a = localStorage.getItem("user_id");
+      console.log("user_id:", a);
     },
   };
   </script>

@@ -7,6 +7,9 @@ dotenv.config();
 
 //Tạo và lưu trữ một user mới
 exports.create = async (req, res, next) => {
+    if (!req.body?.name) {
+        return next(new ApiError(400, "Tên không được để trống"));
+    }
     if (!req.body?.email) {
         return next(new ApiError(400, "Email không được để trống"));
     }
@@ -52,13 +55,13 @@ exports.login = async (req, res, next) => {
                 process.env.SECRET_KEY, 
                 { expiresIn: "1h" } // Thời gian hết hạn của mã thông báo 1 giờ
             );
-
             // Gửi mã thông báo JWT về client
-            return res.send({  message: "Đăng nhập thành công!", token: token });
+            return res.send({  message: "Đăng nhập thành công!", token: token, user_id: document[0]._id, role: document[0].role  });
         }
 
         // Xử lý trường hợp đăng nhập không thành công ở đây
         return res.send({ message: "Đăng nhập thất bại!"});
+        // console.log(document);
     } catch (error) {
         return next(
             new ApiError(500, "Xảy ra lỗi khi đăng nhập")
