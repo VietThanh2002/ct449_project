@@ -68,9 +68,10 @@ exports.update = async (req, res, next) => {
     try {
         const productService = new ProductService(MongoDB.client);
         const document = await productService.update(req.params.id, req.body);
-        if (!document) {
+        if (document === null) {
             return next(new ApiError(404, "Product not found"));
         }
+     
         return res.send({ message: "Product was updated successfully"});
     } catch (error) {
         return next(

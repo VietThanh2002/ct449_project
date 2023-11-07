@@ -6,7 +6,7 @@ import HomePage from "../components/Home.vue";
 import IntroducePage from "../components/Introduce.vue";
 import ShoppingCart from "../components/ShoppingCart.vue"
 import AdminLogin from "../components/AdminLogin.vue"
-
+import userList from "../components/UserList.vue"
 const routes = [
     {
         path: "/:pathMatch(.*)*",
@@ -68,6 +68,12 @@ const routes = [
         path: "/products/",
         name: "product.add",
         component: () => import("@/views/ProductsEdit.vue"),
+        props: true
+    },
+    {
+        path: "/userList/",
+        name: "user.list",
+        component: () => import("@/components/UserList.vue"),
         props: true
     },
     {

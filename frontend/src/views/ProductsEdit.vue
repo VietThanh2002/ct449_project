@@ -11,7 +11,7 @@
         @delete:product="deleteProduct"
         @add:product="addProduct"
       />
-      <p>{{ message }}</p>
+      <p class="text-center">{{ message }}</p>
     </div>
   </template>
   

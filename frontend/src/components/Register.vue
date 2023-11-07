@@ -139,7 +139,7 @@ export default {
         repassword: Yup.string()
           .oneOf([Yup.ref('password'), null], 'Mật khẩu nhập lại không khớp')
           .required('Mật khẩu nhập lại không được để trống'),
-       phone: Yup.string().required('Số điện thoại không được để trống').max(10, 'Số điện thoại không được quá 10 số'),
+        phone: Yup.string().required('Số điện thoại không được để trống').max(10, 'Số điện thoại không được quá 10 số').min(10, 'Số điện thoại không được ít hơn 10 số'),
         address: Yup.string().required('Địa chỉ không được để trống'),
       });
 

@@ -10,7 +10,7 @@
               <div class="input-group form-group">
                 <input
                   type="name"
-                  class="form-control"
+                  class="form-control m-2"
                   placeholder="Nhập tên của Quản Trị Viên"
                   @blur="validate()"
                   v-model="admin.name"
@@ -23,7 +23,7 @@
               <div class="input-group form-group">
                 <input
                   type="password"
-                  class="form-control"
+                  class="form-control m-2"
                   placeholder="Nhập Mật Khẩu"
                   @blur="validate()"
                   v-model="admin.password"

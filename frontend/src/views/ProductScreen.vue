@@ -22,7 +22,6 @@
   <script>
   import AppHeaderVue from "@/components/AppHeader.vue";
   import ProductList from "@/components/Product.vue";
-  import ProductDetail from "@/components/ProductDetail.vue";
   import ProductService from "@/services/product.service";
   import AppFooterVue from "@/components/AppFooter.vue";
   
@@ -30,7 +29,6 @@
     components: {
       ProductList,
       AppHeaderVue,
-      ProductDetail,
       AppFooterVue,
     },
     // Đoạn mã xử lý đầy đủ sẽ trình bày bên dưới

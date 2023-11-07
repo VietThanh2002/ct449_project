@@ -10,6 +10,12 @@
   
   <script>
   export default {
+    methods: {
+      logout() {
+        localStorage.removeItem("admin_login");
+        this.$router.push({ name: "LoginPage" });
+      },
+    },
     computed: {
       isLoggedIn() {
         const adminLogin = localStorage.getItem("admin_login");
@@ -22,12 +28,6 @@
           return adminData.name; // Thay "name" bằng trường tên của admin trong dữ liệu đăng nhập
         }
         return "";
-      },
-    },
-    methods: {
-      logout() {
-        localStorage.removeItem("admin_login");
-        this.$router.push({ name: "LoginPage" });
       },
     },
   };

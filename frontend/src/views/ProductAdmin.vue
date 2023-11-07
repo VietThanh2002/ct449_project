@@ -5,6 +5,18 @@
       <div class="col-lg-10 mt-3">
         <InputSearch v-model="searchText" />
       </div>
+      <div class="col-lg-2 mt-3">
+        <router-link
+            :to="{
+              name: 'user.list',
+        
+            }"
+          >
+          <button class="mt-2 bg-secondary p-1">
+              Danh sách khách hàng
+            </button>
+        </router-link>
+      </div>
       <div class="mt-3 col-md-12 justify-content-around align-items-center">
 
         <button class="btn btn-sm btn-success float-start button_add" @click="goToAddProduct">
@@ -48,13 +60,14 @@
   import ProductCard from "@/components/ProductCard.vue";
   import InputSearch from "@/components/InputSearch.vue";
   import ProductList from "@/components/ProductList.vue";
+  import UserList from "@/components/UserList.vue";
   import ProductService from "@/services/product.service";
-  
   export default {
     components: {
       ProductCard,
       InputSearch,
       ProductList,
+      UserList,
       AdminHeader,
     },
     // Đoạn mã xử lý đầy đủ sẽ trình bày bên dưới
