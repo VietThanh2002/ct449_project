@@ -3,7 +3,7 @@
       <AppHeaderVue />
     </div>
     
-    <h1 class="bd-title d-flex justify-content-center mt-4">GIỚI THIỆU VỀ ĐẶC SẢN</h1>
+    <h1 class="bd-title d-flex justify-content-center mt-4">GIỚI THIỆU VỀ CỬA HÀNG</h1>
     <div class="container my-5 ">
         <div class="row featurette d-flex justify-content-center align-items-center">
             <div class="col-md-7">

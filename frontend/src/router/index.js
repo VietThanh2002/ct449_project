@@ -24,6 +24,13 @@ const routes = [
         name: "ProductPage",
         component: () => import("@/views/ProductScreen.vue"),
     },
+
+    {
+        path: "/product/:id",
+        name: "ProductDetail",
+        component: () => import("@/views/ProductDetail.vue"),
+        props: true
+    },
     
     {
         path: "/introduce",

@@ -7,7 +7,7 @@
         :key="product._id"
         :class="{ active: index === activeIndex }"
       >
-      <router-link to="/">
+      <router-link :to="`/product/${product._id}`">
         <div class="product_img">
           <img :src="product.img" alt="" />
         </div>
@@ -23,9 +23,9 @@
               <i class="fa-solid fa-cart-shopping"></i>
         </button>
       </div>
-        <div class="product_text">
+        <!-- <div class="product_text">
           {{ product.des }}
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

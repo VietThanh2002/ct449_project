@@ -12,7 +12,7 @@
         
             }"
           >
-          <button class="mt-2 bg-secondary p-1">
+          <button class="mt-2 p-1">
               Danh sách khách hàng
             </button>
         </router-link>

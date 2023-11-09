@@ -65,3 +65,7 @@
   <!-- Copyright -->
   </footer>
 </template>
+
+<style scoped>
+ 
+</style>

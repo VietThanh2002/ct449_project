@@ -23,10 +23,12 @@
         </li>
       </div>
       <div class="navbar-nav float-end">
+        
         <li class="nav-item">
           
           <router-link to="/shopping_cart" class="nav-link">
             <button class="btn"><i class=" fas fa-cart-shopping"></i></button>
+            <span v-if="totalQuantity > 0" class="cart-quantity">{{ totalQuantity }}</span>
           </router-link>
 
           <router-link to="/login" class="nav-link">
@@ -53,7 +55,8 @@
       return {
         carts: [],
         local_user: {
-          role: "",
+        role: "",
+          
         },
       };
     },

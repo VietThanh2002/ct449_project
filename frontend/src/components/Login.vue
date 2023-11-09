@@ -52,7 +52,7 @@
   </template>
   
   <script>
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import {useRouter} from "vue-router"
 const router = useRouter();
 import UserService from "../services/user.service";
