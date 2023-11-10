@@ -7,6 +7,7 @@ import IntroducePage from "../components/Introduce.vue";
 import ShoppingCart from "../components/ShoppingCart.vue"
 import AdminLogin from "../components/AdminLogin.vue"
 import userList from "../components/UserList.vue"
+
 const routes = [
     {
         path: "/:pathMatch(.*)*",

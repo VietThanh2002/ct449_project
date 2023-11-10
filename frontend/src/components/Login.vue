@@ -91,7 +91,7 @@ import UserService from "../services/user.service";
       async login() {
         if (this.validate()) {
           const userLogin = await UserService.login(this.user);
-          // console.log(userLogin);
+          console.log(userLogin);
           const token = JSON.stringify(userLogin.token);
           localStorage.setItem("token", token);
           const id = JSON.stringify(userLogin.user_id);
@@ -102,7 +102,7 @@ import UserService from "../services/user.service";
           // } else if (userLogin.role === "admin") {
           //   this.$router.push({ name: "AdminPage" });
           } else  {
-            alert("Xin lỗi! Không có tài khoản này!");
+            alert("Tài khoản hoặc mật khẩu không đúng!");
           }
         }
       },
