@@ -4,7 +4,7 @@ const ApiError = require("../api-error");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
-
+const bcrypt = require('bcrypt');
 //Tạo và lưu trữ một user mới
 exports.create = async (req, res, next) => {
     if (!req.body?.name) {
