@@ -1,18 +1,20 @@
 const { ObjectId } = require("mongodb");
 
+const bcrypt = require("bcrypt");
+
     class UserService {
         constructor(client) {
         this.User = client.db().collection("users");
     }
     
     // Định nghĩa các phương thức truy xuất CSDL sử dụng mongodb API
-    extractUserData(payload) {
+   extractUserData(payload) {
         const createdAt = new Date();
-
+       
         const user = {
             name: payload.name,
             email: payload.email,
-            password: payload.password,
+            password: bcrypt.hashSync(payload.password, 8),
             address: payload.address,
             phone: payload.phone,
             role: payload.role,

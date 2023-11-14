@@ -25,7 +25,7 @@
       <div class="navbar-nav float-end">
         
         <li class="nav-item">
-          
+  
           <router-link to="/shopping_cart" class="nav-link">
             <button class="btn"><i class=" fas fa-cart-shopping"></i></button>
           </router-link>
@@ -50,6 +50,7 @@
 </template>
   
   <script>
+  import InputSearch from "@/components/InputSearch.vue";
   export default {
     data() {
       return {

@@ -44,30 +44,36 @@ exports.login = async (req, res, next) => {
         const userService = new UserService(MongoDB.client);
         const document = await userService.login(req.body);
 
-        if (document[0].email === req.body.email && document[0].password === req.body.password) {
-            // Tạo mã thông báo JWT
-            const token = jwt.sign(
-                {
-                    id: document[0]._id,
-                    email: document[0].email,
-                    role: document[0].role
-                },
-                process.env.SECRET_KEY, 
-                { expiresIn: "1h" } // Thời gian hết hạn của mã thông báo 1 giờ
-            );
-            // Gửi mã thông báo JWT về client
-            return res.send({  message: "Đăng nhập thành công!", token: token, user_id: document[0]._id, role: document[0].role  });
+        // Kiểm tra xem có dữ liệu người dùng hay không
+        if (document && document.length > 0) {
+            // So sánh mật khẩu đã băm
+            const passwordIsValid = bcrypt.compareSync(req.body.password, document[0].password);
+
+            if (passwordIsValid && document[0].email === req.body.email) {
+                // Tạo mã thông báo JWT
+                const token = jwt.sign(
+                    {
+                        id: document[0]._id,
+                        email: document[0].email,
+                        role: document[0].role
+                    },
+                    process.env.SECRET_KEY,
+                    { expiresIn: "1h" } // Thời gian hết hạn của mã thông báo 1 giờ
+                );
+                // Gửi mã thông báo JWT về client
+                return res.send({ message: "Đăng nhập thành công!", token, user_id: document[0]._id, role: document[0].role });
+            }
         }
 
         // Xử lý trường hợp đăng nhập không thành công ở đây
-        return res.send({ message: "Đăng nhập thất bại!"});
-        // console.log(document);
+        return res.send({ message: "Đăng nhập thất bại!" });
+
     } catch (error) {
-        return next(
-            new ApiError(500, "Xảy ra lỗi khi đăng nhập")
-        );
+        // Xử lý lỗi nếu có
+        return next(new ApiError(500, "Xảy ra lỗi khi đăng nhập"));
     }
 };
+
 
 
 // Truy xuất tất cả các tài khoản từ cơ sở dữ liệu
@@ -135,7 +141,7 @@ exports.delete = async (req, res, next) => {
     try {
         const userService = new UserService(MongoDB.client);
         const document = await userService.delete(req.params.id);
-        if (!document) {
+        if (document === null) {
             return next(new ApiError(404, "Tài khoản không được tìm thấy"));
         }
         return res.send({ message: "Tài khoản đã được xóa thành công"});
@@ -147,7 +153,8 @@ exports.delete = async (req, res, next) => {
             )
         );
     }
-}; 
+};
+
 
 // Xóa tất cả các tài khoản từ CSDL
 exports.deleteAll = async (_req, res, next) => {
