@@ -25,7 +25,7 @@ export default {
       <tr class="text-center">
         <th scope="col">STT</th>
         <th scope="col">Tên Sản Phẩm</th>
-        <th scope="col">Giá</th>
+        <th scope="col" style="width: 90px;">Giá</th>
         <th scope="col">Mô Tả</th>
         <th scope="col">Hình Ảnh</th>
       </tr>

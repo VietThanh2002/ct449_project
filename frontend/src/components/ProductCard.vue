@@ -15,11 +15,11 @@ export default {
             <hr>
         </div>
         <div class="p-1">
-            <strong>Link Ảnh:</strong>
-            {{ product.img }}
+            <strong>Ảnh</strong>&nbsp;
+            <img :src="product.img" alt="Product Image" style="max-width: 100px; max-height: 100px;" />
             <hr>
         </div>
-        <div class="p-1">
+        <!-- <div class="p-1">
             <strong>Giá bán:</strong>
             {{ product.price }}
             <hr>
@@ -28,7 +28,7 @@ export default {
             <strong>Mô tả:</strong>
             {{ product.des }}
             <hr>
-        </div>
+        </div> -->
     </div>
     
 </template>

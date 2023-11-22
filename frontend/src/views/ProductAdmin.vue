@@ -12,19 +12,19 @@
         
             }"
           >
-          <button class="mt-2 p-1">
+          <div class="mt-2 p-1 btn btn-secondary">
               Danh sách khách hàng
-            </button>
+            </div>
         </router-link>
       </div>
       <div class="mt-3 col-md-12 justify-content-around align-items-center">
 
         <button class="btn btn-sm btn-success float-start button_add" @click="goToAddProduct">
-          <i class="fas fa-plus"></i> Thêm sản phẩm
+          <i class="fas fa-plus"></i> Thêm bánh
         </button>
   
         <button class="btn btn-sm btn-danger float-end" @click="removeAllProducts">
-          <i class="fas fa-trash"></i> Xóa tất cả sản phẩm
+          <i class="fas fa-trash"></i> Xóa tất cả bánh
         </button>
       </div>
       <div class="mt-3 col-md-12">
@@ -38,18 +38,16 @@
       </div>
       <div class="mt-3 col-md-8">
         <div v-if="activeProduct">
-          <h4>Chi tiết Sản Phẩm</h4>
-          <ProductCard :product="activeProduct" />
           <router-link
             :to="{
               name: 'product.edit',
               params: { id: activeProduct._id },
             }"
           >
-            <button class="mt-2 bg-info p-1 product_edit">
-              Chỉnh sửa sản phẩm
-            </button>
+          <button class="mt-2 bg-success p-1 product_edit">Cập nhật bánh</button>
           </router-link>
+          <ProductCard :product="activeProduct" />
+      
         </div>
       </div>
     </div>
@@ -74,7 +72,7 @@
     data() {
       return {
         products: [],
-        activeIndex: -1,
+        activeIndex: -1, // chỉ số trạng thái chưa được chọn 
         searchText: "",
       };
     },
@@ -89,8 +87,8 @@
       // Chuyển các đối tượng product thành chuỗi để tiện cho tìm kiếm.
       productStrings() {
         return this.products.map((product) => {
-          const { name, des } = product;
-          return [name, des].join("");
+          const { name, des, price, } = product;
+          return [name, des, price].join("");
         });
       },
       // Trả về các product có chứa thông tin cần tìm kiếm.
@@ -169,7 +167,7 @@
 
 .button_add:hover,
 .product_edit:hover {
-  background-color: #007bff;
+  background-color: #58bd4d;
   color: #fff;
 }
 

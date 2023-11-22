@@ -95,7 +95,7 @@
           <div class="d-flex justify-content-center links">
             <p>
               Bạn đã có tài khoản!
-              <router-link to="/">Đăng Nhập</router-link>
+              <router-link to="/login">Đăng Nhập</router-link>
             </p>
           </div>
         </div>

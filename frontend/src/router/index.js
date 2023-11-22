@@ -4,9 +4,10 @@ import LoginPage from "../components/Login.vue";
 import RegisterPage from "../components/Register.vue";
 import HomePage from "../components/Home.vue";
 import IntroducePage from "../components/Introduce.vue";
+import ContactPage from "../components/ContactPage.vue";
 import ShoppingCart from "../components/ShoppingCart.vue"
 import AdminLogin from "../components/AdminLogin.vue"
-import userList from "../components/UserList.vue"
+
 
 const routes = [
     {
@@ -40,18 +41,36 @@ const routes = [
         props: true
     },
     {
-        path: "/shopping_cart",
+        path: "/contact",
+        name: "ContactPage",
+        component: ContactPage,
+        props: true
+    },
+    {
+        path: "/cart",
         name: "ShoppingCart",
         component: ShoppingCart,
         props: true
     },
     {
-        path: "/admin/login",
+        path: "/profile",
+        name: "Profile",
+        component: () => import("@/views/ViewProfile.vue"),
+        props: true
+    },
+    {
+        path: "/updateProfile",
+        name: "UpdateProfile",
+        component: () => import("@/views/InfoUpdate.vue"),
+        props: true
+    },
+    {
+        path: "/admin",
         name: "AdminLogin",
         component: AdminLogin,
     },
     {
-        path: "/admin/adminPage",
+        path: "/AdminPage",
         name: "AdminPage",
         component: AdminPage,
         beforeEnter: (to, from, next) => {

@@ -99,8 +99,6 @@ import UserService from "../services/user.service";
           localStorage.setItem("role", userLogin.role);
           if (userLogin.role === "user") {
             this.$router.push({ name: "HomePage" });
-          // } else if (userLogin.role === "admin") {
-          //   this.$router.push({ name: "AdminPage" });
           } else  {
             alert("Tài khoản hoặc mật khẩu không đúng!");
           }

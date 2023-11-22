@@ -6,8 +6,8 @@
         <P class="m-2 p-2 text-center display-5">Giỏ hàng</P>
         <div class="row">
           <div class="col">
-            <table class="table table-group-divider table-hover">
-              <thead class="text-center">
+            <table class="table table-group-divider table-hover shadow rounded-2">
+              <thead class="text-center m-1 p-1">
                 <th>STT</th>
                 <th>Hình đại diện</th>
                 <th>Tên sản phẩm</th>
@@ -24,11 +24,11 @@
                   </td>
                   <td>{{ product.name }}</td>
                   <td class="text-right">{{ formatPrice(product.price) }}</td>
-                  <td class="text-right">{{ product.amount }}</td>
+                  <td class="text-right">x {{ product.amount }}</td>
                   <td class="text-right">{{ formatPrice(product.price * product.amount) }}</td>
                   <td>
-                    <button v-if="product._id" type="button" class="ml-2 btn btn-danger" @click="deleteProduct(index)">
-                      Xóa
+                    <button v-if="product._id" type="button" class="ml-2 btn btn-danger rounded-circle" @click="deleteProduct(index)">
+                      <i class="fa-solid fa-trash"></i>
                     </button>
                   </td>
                 </tr>
@@ -36,9 +36,13 @@
             </table>
           </div>
         </div>
+        <hr>
         <div class="row">
-          <div class="col">
-            <h4 class="text-right">Tổng số tiền: {{ formatPrice(totalMoney) }}</h4>
+          <div class="col-lg-6">
+            <h4 class="float-start">Tổng số tiền: {{ formatPrice(totalMoney) }}</h4>
+          </div>
+          <div class="col-lg-6">
+            <button class="btn btn-sm btn-success float-end">Tiến hành đặt hàng</button>
           </div>
         </div>
       </div>

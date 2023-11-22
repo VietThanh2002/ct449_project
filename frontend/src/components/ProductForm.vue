@@ -3,7 +3,7 @@
         class=" bg-light p-3 shadow"
         @submit="submitProduct"
         :validation-schema="productFormSchema"
-        style="height: 380px;"
+        style="height: 420px;"
     >
         <div class="form-group">
             <label for="name" class="m-2">Tên sản phẩm</label>

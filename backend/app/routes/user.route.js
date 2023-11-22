@@ -10,7 +10,7 @@ router.route("/")
 
 router.route("/:id")
     .get(users.findOne)
-    .put(users.update)
+    .patch(users.update)
     .delete(users.delete);
 
 router.route("/login")

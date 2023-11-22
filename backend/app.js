@@ -8,7 +8,7 @@ const ApiError = require("./app/api-error");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // server đọc yêu cầu có content/type là json -> đọc nội dung json đưa vào body
 
 app.use("/api/products", productsRoutes);
 app.use("/api/users", usersRoutes);

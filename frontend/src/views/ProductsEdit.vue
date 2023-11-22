@@ -78,9 +78,13 @@
             data.des === ""
           ) {
             alert("Bạn phải nhập đầu đủ các thông tin!");
-          }
+           } 
+      
+        else{
           await ProductService.create(data);
           this.message = "Thêm mới sản phẩm thành công.";
+        }
+          
           // this.$router.push({ name: "" });
         } catch (error) {
           console.log(error);

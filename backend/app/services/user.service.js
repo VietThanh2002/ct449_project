@@ -64,10 +64,10 @@ const bcrypt = require("bcrypt");
         const filter = {
             _id: ObjectId.isValid(id) ? new ObjectId(id) : null,
         };
-        const updateData = this.extractUserData(payload);
+        const update = this.extractUserData(payload);
         const result = await this.User.findOneAndUpdate(
             filter,
-            { $set: updateData },
+            { $set: update },
             { returnDocument: "after" }
         );
         return result.value;

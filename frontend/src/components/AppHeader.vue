@@ -20,20 +20,29 @@
           >
             Giới Thiệu
           </router-link>
+
+          <router-link
+            to="/contact"
+            class="nav-link"
+          >
+            Liên hệ
+          </router-link>
         </li>
       </div>
       <div class="navbar-nav float-end">
         
         <li class="nav-item">
   
-          <router-link to="/shopping_cart" class="nav-link">
+          <router-link to="/cart" class="nav-link">
             <button class="btn"><i class=" fas fa-cart-shopping"></i></button>
           </router-link>
 
-          <router-link to="/login" class="nav-link">
+          <router-link v-show="this.user_id === null" to="/login" class="nav-link">
               <button class="btn "><i class="fa-solid fa-user"></i></button>
           </router-link>
-
+          <router-link v-show="this.user_id !== null" to="/profile" class="nav-link">
+              <button class="btn "><i class="fa-solid fa-user"></i></button>
+          </router-link>
           
           <router-link
             to="/"
@@ -43,6 +52,7 @@
           >
            <button class="btn"><i class="fa-solid fa-right-from-bracket"></i></button>
           </router-link>
+          
         </li>
       </div>
     </nav>
@@ -59,6 +69,7 @@
         role: "",
           
         },
+        user_id: "",
       };
     },
     methods: {
@@ -74,6 +85,8 @@
       const listLocalCart = JSON.parse(localStorage.getItem("cart") || "[]");
       this.carts = listLocalCart;
       const user = JSON.parse(localStorage.getItem("user_id")) || { role: "" };
+      const user_id = localStorage.getItem("user_id") || null;
+      this.user_id = user_id;
       this.local_user = user;
     },
   };

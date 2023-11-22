@@ -74,7 +74,7 @@ export default {
         };
         saveLocalCart.push(newProduct);
         this.updateLocalStorage(saveLocalCart);
-        this.showAlert("Sản phẩm vừa được thêm vào giỏ hàng");
+        this.showAlert("Sản phẩm vừa được thêm vào giỏ hàng!!");
       }
     },
   },

@@ -110,7 +110,7 @@ exports.findOne = async (req, res, next) => {
         return next(
             new ApiError(
                 500,
-                `Lỗi khi truy xuất sản phẩm với id=${req.params.id}`
+                `Lỗi khi truy xuất với id=${req.params.id}`
             )
         );
     }
@@ -119,13 +119,13 @@ exports.findOne = async (req, res, next) => {
 // Cập nhật tài khoản theo id
 exports.update = async (req, res, next) => {
     if (Object.keys(req.body).length === 0) {
-        return next(new ApiError(400, "Dữ liệu để cập nhật không được để trống"));
+        return next(new ApiError(400, "Dữ liệu cập nhật không được để trống!"));
     }
 
     try {
         const userService = new UserService(MongoDB.client);
         const document = await userService.update(req.params.id, req.body);
-        if (!document) {
+        if (document === null) {
             return next(new ApiError(404, "Tài khoản không được tìm thấy"));
         }
         return res.send({ message: "Tài khoản đã được cập nhật thành công"});
