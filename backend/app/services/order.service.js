@@ -13,15 +13,17 @@ class OrderService {
 
         const order = {
             userId: new ObjectId(userId),
-            cart: JSON.parse(JSON.stringify(cart)), 
+            cart: JSON.parse(JSON.stringify(cart)),
             orderDate: new Date(),
             address: address,
             name: name,
             phone: phone,
             totalMoney: totalMoney,
+            status: "chờ xử lý" // Trạng thái mặc định khi tạo đơn hàng
         };
 
         const result = await this.Order.insertOne(order);
+
         return result && result.ops ? result.ops[0] : null;
     }
 
@@ -36,12 +38,16 @@ class OrderService {
     }
 
     async getUserOrders(userId) {
-        const filter = { userId: ObjectId.isValid(userId) ? new ObjectId(userId) : null };
+        const filter = {
+            userId: ObjectId.isValid(userId) ? new ObjectId(userId) : null
+            // Bạn có thể thêm điều kiện lọc theo trạng thái nếu cần
+        };
         const orders = await this.Order.find(filter).toArray();
         return orders;
     }
 
     async getAllOrders() {
+        // Bạn có thể thêm điều kiện lọc theo trạng thái nếu cần
         const orders = await this.Order.find({}).toArray();
         return orders;
     }
@@ -50,6 +56,7 @@ class OrderService {
         const filter = {
             userId: ObjectId.isValid(userId) ? new ObjectId(userId) : null,
             _id: ObjectId.isValid(orderId) ? new ObjectId(orderId) : null
+            // Bạn có thể thêm điều kiện lọc theo trạng thái nếu cần
         };
 
         const result = await this.Order.findOneAndDelete(filter);
@@ -61,9 +68,24 @@ class OrderService {
             throw new Error("Invalid orderId");
         }
 
-        const filter = { _id: new ObjectId(orderId) };
+        const filter = {
+            _id: new ObjectId(orderId)
+            // Bạn có thể thêm điều kiện lọc theo trạng thái nếu cần
+        };
 
         const result = await this.Order.findOneAndDelete(filter);
+        return result.value;
+    }
+
+    async updateOrderStatus(orderId, newStatus) {
+        if (!ObjectId.isValid(orderId)) {
+            throw new Error("Invalid orderId");
+        }
+
+        const filter = { _id: new ObjectId(orderId) };
+        const update = { $set: { status: newStatus } };
+
+        const result = await this.Order.findOneAndUpdate(filter, update, { returnDocument: 'after' });
         return result.value;
     }
 }

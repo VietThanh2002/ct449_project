@@ -50,8 +50,8 @@
   
   <script>
   import AppHeaderVue from "../components/AppHeader.vue";
-  import ProductList from "../components/Product.vue";
   import  AppFooterVue from "../components/AppFooter.vue";
+  import ProductList from "../components/Product.vue";
   import ProductService from "../services/product.service";
   
   export default {

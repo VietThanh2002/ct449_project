@@ -20,7 +20,7 @@ class CartService {
     }
 
     async deleteAll(userId) {
-        return (await this.api.delete(` deleteAll/${userId}`)).data;
+        return (await this.api.delete(`/deleteAll/${userId}`)).data;
     }
 
     async removeItem(userId, productId) {

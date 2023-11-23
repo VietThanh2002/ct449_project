@@ -41,10 +41,18 @@
         <hr>
         <div class="row">
           <div class="col-lg-6">
-            <h4 class="float-start">Tổng số tiền: {{ formatPrice(totalMoney) }}</h4>
+            <h4 class="float">Tổng số tiền: {{ formatPrice(totalMoney) }}</h4>
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text">Tên: {{ users.name }}</p>
+                <p class="card-text">Email: {{ users.email }}</p>
+                <p class="card-text">Địa chỉ: {{ users.address }}</p>
+                <p class="card-text">Số điện thoại: {{ users.phone }}</p>
+              </div>
+          </div>
           </div>
           <div class="col-lg-6">
-            <button class="btn btn-sm btn-success float-end">Tiến hành đặt hàng</button>
+                <button class="btn btn-sm btn-success float-end" @click="placeOrder">Đặt hàng</button>
           </div>
         </div>
       </div>
@@ -56,6 +64,8 @@
 import AppHeaderVue from "../components/AppHeader.vue";
 import CartService from "@/services/cart.service.js"; // Thay đổi đường dẫn phù hợp
 import ProductService from "@/services/product.service";
+import UserService from "../services/user.service";
+import OrderService from "../services/order.service.js";
 
 export default {
   components: {
@@ -65,6 +75,7 @@ export default {
   data() {
     return {
       products: [],
+      users: {}, 
     };
   },
   methods: {
@@ -73,10 +84,9 @@ export default {
         return formattedPrice + "đ";
     },
     async deleteProduct(index) {
-      const productId = this.products[index]._id;
-
       try {
-        const user_id = JSON.parse(localStorage.getItem('user_id'));
+        const productId = this.products[index].product._id;
+        const user_id = JSON.parse(localStorage.getItem("user_id"));
         const updatedCart = await CartService.removeItem(user_id, productId);
 
         if (updatedCart) {
@@ -86,7 +96,33 @@ export default {
         console.error("Lỗi khi xóa sản phẩm từ server:", error);
       }
     },
+    async placeOrder() {
+        try {
+            const user_id = JSON.parse(localStorage.getItem('user_id'));
+
+            // Kiểm tra xem giỏ hàng có sản phẩm không
+            if (this.products.length === 0) {
+                alert('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi đặt hàng.');
+                return;
+            }
+
+            // Tạo đơn hàng
+            const order = await OrderService.createOrder(user_id, this.products, this.users.address, this.users.name, this.users.phone, this.totalMoney);
+            console.log('Place Order Result:', order);
+
+            if (order) {
+                // Đặt hàng thành công, bạn có thể thực hiện các bước khác như cập nhật trạng thái giỏ hàng, thông báo thành công, v.v.
+                alert('Đặt hàng thành công!');
+            } else {
+                alert('Đặt hàng không thành công. Vui lòng thử lại sau.');
+            }
+        } catch (error) {
+            console.error('Lỗi khi đặt hàng:', error);
+            alert('Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại sau.');
+        }
+    },
   },
+  
   computed: {
     totalMoney() {
       return this.products.reduce((total, item) => total + item.product.price * item.quantity, 0);
@@ -104,6 +140,11 @@ export default {
       console.error("Lỗi khi lấy thông tin giỏ hàng từ server:", error);
     }
   },
+  async created() {
+        const user_id = JSON.parse(localStorage.getItem('user_id'));
+        console.log(user_id);
+        this.users = await UserService.get(user_id);
+    },
 };
 </script>
 

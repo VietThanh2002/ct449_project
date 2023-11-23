@@ -73,3 +73,22 @@ exports.deleteOrderById = async (req, res, next) => {
         next(new ApiError(500, 'An error occurred while deleting the order'));
     }
 };
+
+ exports.updateOrderStatus = async (req, res, next) => {
+    try {
+        const orderService = new OrderService(MongoDB.client);
+        const { orderId } = req.params;
+        const { newStatus } = req.body;
+
+        const updatedOrder = await orderService.updateOrderStatus(orderId, newStatus);
+
+        if (!updatedOrder) {
+            return next(new ApiError(404, 'Order not found'));
+        }
+
+        res.json(updatedOrder);
+    } catch (error) {
+        console.error(error);
+        next(new ApiError(500, 'An error occurred while updating the order status'));
+    }
+}
