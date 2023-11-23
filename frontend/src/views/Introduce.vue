@@ -38,8 +38,8 @@
   </template>
   
   <script>
-  import AppHeaderVue from "./AppHeader.vue";
-  import AppFooterVue from "./AppFooter.vue";
+  import AppHeaderVue from "../components/AppHeader.vue";
+  import AppFooterVue from "../components/AppFooter.vue";
   export default {
     name: "IntroducePage",
     components: {

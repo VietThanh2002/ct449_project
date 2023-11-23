@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const productsRoutes = require("./app/routes/product.route");
 const usersRoutes = require("./app/routes/user.route");
+const orderRoutes = require("./app/routes/order.route");
+const cartRoutes = require("./app/routes/cart.route");
 const adminRoutes = require("./app/routes/admin.route");
 const ApiError = require("./app/api-error");
 
@@ -12,6 +14,8 @@ app.use(express.json()); // server đọc yêu cầu có content/type là json -
 
 app.use("/api/products", productsRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/order", orderRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/api/admins", adminRoutes);
 //handle 404 response
 app.use((req, res, next) => {

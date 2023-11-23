@@ -16,5 +16,13 @@ router.route("/:id")
 router.route("/login")
     .post(users.login);
 
+// router.route("/cart")
+//     .post(users.addToCart)
+//     .get(users.findAllCart)
+//     .delete(users.deleteAllProductsFromCart);
+
+// router.route("/cart/:id")
+//     .delete(users.deleteProductFromCart)
+//     .patch(users.updateProductQuantityFromCart)
     
 module.exports = router;

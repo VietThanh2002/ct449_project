@@ -3,13 +3,15 @@
     <div class="container-fluid mt-5" style="margin-bottom: 270px;">
         <div class="row">
             <div class="col-lg-6">
-                <img :src="product.img" alt="" class="img-fluid img-product float-end rounded-3"/>
+                <!-- Kiểm tra nếu product không rỗng trước khi truy cập thuộc tính img -->
+                <img v-if="product" :src="product.img" alt="" class="img-fluid img-product float-end rounded-3"/>
             </div>
             <div class="col-lg-6">
                <div class="">
-                    <div class="product-name"><span>Tên sản phẩm: </span>{{ product.name }}</div>
-                    <div class="product-price"><span>Giá:  </span>{{ formatPrice(product.price) }}</div>
-                    <div class="product-description"><span>Mô tả:  </span>{{ product.des }}</div>
+                    <!-- Kiểm tra nếu product không rỗng trước khi truy cập các thuộc tính khác -->
+                    <div class="product-name" v-if="product"><span>Tên sản phẩm: </span>{{ product.name }}</div>
+                    <div class="product-price" v-if="product"><span>Giá:  </span>{{ formatPrice(product.price) }}</div>
+                    <div class="product-description" v-if="product"><span>Mô tả:  </span>{{ product.des }}</div>
                </div>
                
                 <button class="btn_cart rounded-pill mt-3" @click="addProductToCart(product)" style="width: 50px;">
@@ -19,74 +21,64 @@
         </div>
     </div>
     <AppFooterVue/>
-  </template>
-  
-  <script>
-  import ProductService from "@/services/product.service";
-  import AppHeaderVue from "@/components/AppHeader.vue";
-  import AppFooterVue from "@/components/AppFooter.vue";
-  export default {
-        name: "ProductDetail",
-        components:{
-            AppHeaderVue,
-            AppFooterVue,
-        },
-        data() {
-            return {
-                product: null, // Sản phẩm sẽ được tải từ API dựa trên ID sản phẩm
-            };
-        },
-        methods: {
-            formatPrice(price) {
-                const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                return formattedPrice + "đ";
-            },
-            async addProductToCart(product) {
-                const saveLocalCart = JSON.parse(localStorage.getItem("cart") || "[]");
-                const existingProduct = saveLocalCart.find(item => item._id === product._id);
+</template>
 
-                if (existingProduct) {
-                    existingProduct.amount++;
-                } else {
-                    const newProduct = {
-                    _id: product._id,
-                    name: product.name,
-                    img: product.img,
-                    price: product.price,
-                    des: product.des,
-                    amount: 1,
-                    };
-                    saveLocalCart.push(newProduct);
-                }
+<script>
+import CartService from "@/services/cart.service.js"; // Thay đổi đường dẫn phù hợp
+import ProductService from "@/services/product.service";
+import AppHeaderVue from "@/components/AppHeader.vue";
+import AppFooterVue from "@/components/AppFooter.vue";
 
-            this.updateLocalStorage(saveLocalCart);
-            this.showAlert("Sản phẩm đã được thêm vào giỏ hàng!");
-            },
-            updateLocalStorage(cart) {
-                const saveObject = JSON.stringify(cart);
-                localStorage.setItem("cart", saveObject);
-            },
-            showAlert(message) {
-                alert(message);
-            },
+export default {
+    name: "ProductDetail",
+    components: {
+        AppHeaderVue,
+        AppFooterVue,
+    },
+    data() {
+        return {
+            product: null,
+        };
+    },
+    methods: {
+        formatPrice(price) {
+            const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return formattedPrice + "đ";
         },
-        async created() {
+        async addProductToCart(product) {
             try {
-            const productId = this.$route.params.id;
-            this.product = await ProductService.get(productId);
+                const user_id = JSON.parse(localStorage.getItem('user_id'));
+                if (!user_id) {
+                    // Xử lý trường hợp userId không tồn tại hoặc không hợp lệ
+                    console.error("UserId không hợp lệ.");
+                    return;
+                }
+                
+                await CartService.addToCart(user_id, product._id, 1);
+                this.showAlert("Sản phẩm đã được thêm vào giỏ hàng!");
             } catch (error) {
-            console.error(error);
+                console.error(error);
             }
         },
-    };
-  </script>
-  
-<style scoped>
+        showAlert(message) {
+            alert(message);
+        },
+    },
+    async created() {
+        try {
+            const productId = this.$route.params.id;
+            this.product = await ProductService.get(productId);
+        } catch (error) {
+            console.error(error);
+        }
+    },
+};
+</script>
 
-.img-product{
-    max-width: 50%; /* Ảnh sẽ không vượt quá kích thước của div cha */
-    height: auto; /* Để giữ tỷ lệ khung hình của ảnh */
+<style scoped>
+.img-product {
+    max-width: 50%;
+    height: auto;
     width: 50%;
 }
-
 </style>

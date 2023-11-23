@@ -7,38 +7,32 @@
         :key="product._id"
         :class="{ active: index === activeIndex }"
       >
-      <router-link :to="`/product/${product._id}`">
-        <div class="product_img">
-          <img :src="product.img" alt="" />
-        </div>
-      </router-link>
+        <router-link :to="`/product/${product._id}`">
+          <div class="product_img">
+            <img :src="product.img" alt="" />
+          </div>
+        </router-link>
         <div class="product_name">
           {{ product.name }}
         </div>
-          <div class="product_price">
-            {{  formatPrice(product.price) }}
-          </div>
-      <div class="text-center">
-        <button class="btn_cart" @click="addProductToCart(index)">
-              <i class="fa-solid fa-cart-shopping"></i>
-        </button>
-      </div>
-        <!-- <div class="product_text">
-          {{ product.des }}
-        </div> -->
+        <div class="product_price">
+          {{ formatPrice(product.price) }}
+        </div>
+        <div class="text-center">
+          <button class="btn_cart" @click="addProductToCart(product)">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AppHeaderVue from "./AppHeader.vue";
+import CartService from "@/services/cart.service.js"; // Thay đổi đường dẫn phù hợp
 
 export default {
   name: "ProductPage",
-  components: {
-    AppHeaderVue,
-  },
   props: {
     products: { type: Array, default: [] },
     activeIndex: { type: Number, default: -1 },
@@ -48,39 +42,28 @@ export default {
       const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       return formattedPrice + "đ";
     },
-    updateLocalStorage(cart) {
-      const saveobject = JSON.stringify(cart);
-      localStorage.setItem("cart", saveobject);
-    },
-    showAlert(message) {
-      alert(message);
-    },
-    async addProductToCart(index) {
-      const saveLocalCart = JSON.parse(localStorage.getItem("cart") ?? "[]"); // get list product from local
-      const existingProduct = saveLocalCart.find(item => item._id === this.products[index]._id); //find product from cart 
-      // existingProduct chứa thông tin sản phẩm
-      if (existingProduct) {
-        existingProduct.amount++;
-        this.updateLocalStorage(saveLocalCart);
-        this.showAlert("Đã thêm sản phẩm vào giỏ hàng!!");
-      } else {
-        const newProduct = {
-          _id: this.products[index]._id,
-          name: this.products[index].name,
-          img: this.products[index].img,
-          price: this.products[index].price,
-          des: this.products[index].des,
-          amount: 1,
-        };
-        saveLocalCart.push(newProduct);
-        this.updateLocalStorage(saveLocalCart);
-        this.showAlert("Sản phẩm vừa được thêm vào giỏ hàng!!");
-      }
-    },
+    async addProductToCart(product) {
+            try {
+                const user_id = JSON.parse(localStorage.getItem('user_id'));
+                if (!user_id) {
+                    // Xử lý trường hợp userId không tồn tại hoặc không hợp lệ
+                    console.error("UserId không hợp lệ.");
+                    return;
+                }
+                
+                await CartService.addToCart(user_id, product._id, 1);
+                this.showAlert("Sản phẩm đã được thêm vào giỏ hàng!");
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        showAlert(message) {
+            alert(message);
+        },
   },
-
 };
 </script>
+
 
 <style>
 /* .product_row {

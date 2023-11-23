@@ -49,9 +49,9 @@
   </template>
   
   <script>
-  import AppHeaderVue from "./AppHeader.vue";
+  import AppHeaderVue from "../components/AppHeader.vue";
   import ProductList from "../components/Product.vue";
-  import  AppFooterVue from "./AppFooter.vue";
+  import  AppFooterVue from "../components/AppFooter.vue";
   import ProductService from "../services/product.service";
   
   export default {

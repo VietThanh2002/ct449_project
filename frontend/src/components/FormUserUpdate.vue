@@ -87,7 +87,7 @@
             </div>
             <!-- Nút Cập nhật hồ sơ -->
             <div class="form-group m-2 text-center">
-              <input type="submit" value="Cập Nhật Hồ Sơ" class="btn btn-primary" />
+              <input type="submit" value="Cập Nhật" class="btn btn-primary" />
             </div>
           </form>
         </div>
@@ -152,7 +152,7 @@ export default {
         try {
           const user_id = JSON.parse(localStorage.getItem('user_id'));
           await UserService.update(user_id, this.updatedUser);
-          this.message = "Hồ sơ được cập nhật thành công.";
+          this.message = "Cập nhật thành công.";
         } catch (error) {
           console.log(error);
         }

@@ -61,6 +61,7 @@
   import UserList from "@/components/UserList.vue";
   import ProductService from "@/services/product.service";
   export default {
+    
     components: {
       ProductCard,
       InputSearch,

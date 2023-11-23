@@ -43,6 +43,7 @@ const bcrypt = require("bcrypt");
         return user;
     }
 
+    
     async find(filter) {
         const cursor = await this.User.find(filter);
         return await cursor.toArray();

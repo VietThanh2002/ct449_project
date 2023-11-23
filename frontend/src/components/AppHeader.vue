@@ -60,8 +60,8 @@
 </template>
   
   <script>
-  import InputSearch from "@/components/InputSearch.vue";
   export default {
+    
     data() {
       return {
         carts: [],
