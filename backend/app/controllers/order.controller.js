@@ -73,17 +73,21 @@ exports.deleteOrderById = async (req, res, next) => {
         next(new ApiError(500, 'An error occurred while deleting the order'));
     }
 };
-
- exports.updateOrderStatus = async (req, res, next) => {
+exports.updateOrderStatus = async (req, res, next) => {
     try {
         const orderService = new OrderService(MongoDB.client);
         const { orderId } = req.params;
         const { newStatus } = req.body;
 
+        // Kiểm tra nếu newStatus không được cung cấp
+        if (!newStatus) {
+            return next(new ApiError(400, 'New status is required'));
+        }
+
         const updatedOrder = await orderService.updateOrderStatus(orderId, newStatus);
 
         if (!updatedOrder) {
-            return next(new ApiError(404, 'Order not found'));
+            return next(new ApiError(404, 'Order not found or not updated'));
         }
 
         res.json(updatedOrder);

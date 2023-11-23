@@ -25,6 +25,11 @@ class OrderService {
     async deleteOrder(userId, orderId) {
         return (await this.api.delete(`/deleteOrder/${userId}/${orderId}`)).data;
     }
+    
+    async updateOrderStatus(orderId, newStatus) {
+        const data = { newStatus };  // Chuyển newStatus trong phần thân của yêu cầu PUT
+        return (await this.api.put(`/${orderId}`, data)).data;  // Điều chỉnh đường dẫn để phản ánh đúng route trên server
+    }
 }
 
 export default new OrderService();

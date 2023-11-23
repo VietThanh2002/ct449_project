@@ -81,13 +81,21 @@ class OrderService {
         if (!ObjectId.isValid(orderId)) {
             throw new Error("Invalid orderId");
         }
-
+    
         const filter = { _id: new ObjectId(orderId) };
         const update = { $set: { status: newStatus } };
-
-        const result = await this.Order.findOneAndUpdate(filter, update, { returnDocument: 'after' });
-        return result.value;
+    
+        const result = await this.Order.updateOne(filter, update);
+    
+        if (result.modifiedCount === 1) {
+            // Cập nhật thành công
+            return true;
+        } else {
+            // Cập nhật không thành công, có thể do không tìm thấy đơn hàng với ID cung cấp
+            return false;
+        }
     }
+    
 }
 
 module.exports = OrderService;

@@ -11,7 +11,10 @@
               <p class="card-text">Địa chỉ: {{ users.address }}</p>
               <p class="card-text">Số điện thoại: {{ users.phone }}</p>
               <router-link to="/updateProfile">
-                <button class="btn btn-secondary">Cập nhật thông tin</button>
+                <button class="btn btn-secondary float-start">Cập nhật thông tin</button>
+              </router-link>
+              <router-link to="/order">
+                <button class="btn btn-secondary float-end">Xem đơn hàng</button>
               </router-link>
             </div>
           </div>

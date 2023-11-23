@@ -16,6 +16,16 @@
               Danh sách khách hàng
             </div>
         </router-link>
+        <router-link
+            :to="{
+              name: 'order.list',
+        
+            }"
+          >
+          <div class="mt-2 p-1 btn btn-success">
+              Đơn đặt hàng
+            </div>
+        </router-link>
       </div>
       <div class="mt-3 col-md-12 justify-content-around align-items-center">
 

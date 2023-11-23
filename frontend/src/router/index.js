@@ -98,15 +98,21 @@ const routes = [
         props: true // Truyền các biến trong $route.params vào làm props
     },
     {
-        path: "/products/",
+        path: "/products",
         name: "product.add",
         component: () => import("@/views/ProductsEdit.vue"),
         props: true
     },
     {
-        path: "/userList/",
+        path: "/userList",
         name: "user.list",
         component: () => import("@/components/UserList.vue"),
+        props: true
+    },
+    {
+        path: "/orderlist",
+        name: "order.list",
+        component: () => import("@/components/OrderList.vue"),
         props: true
     },
     {

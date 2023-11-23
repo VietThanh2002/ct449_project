@@ -20,6 +20,8 @@ router.route('/deleteOrder/:userId/:orderId')
 
 router.route('/deleteOrder/:orderId')
     .delete(orderController.deleteOrderById);
-router.route('/orders/:orderId/status')
+    
+router.route('/:orderId')
     .put(orderController.updateOrderStatus);
+    
 module.exports = router;

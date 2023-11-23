@@ -57,6 +57,7 @@
         </div>
       </div>
     </section>
+    <AppFooterVue/>
   </div>
 </template>
 
@@ -66,10 +67,11 @@ import CartService from "@/services/cart.service.js"; // Thay đổi đường d
 import ProductService from "@/services/product.service";
 import UserService from "../services/user.service";
 import OrderService from "../services/order.service.js";
-
+import  AppFooterVue from "../components/AppFooter.vue";
 export default {
   components: {
     AppHeaderVue,
+    AppFooterVue,
   },
   name: "ShoppingCart",
   data() {
@@ -107,15 +109,9 @@ export default {
             }
 
             // Tạo đơn hàng
-            const order = await OrderService.createOrder(user_id, this.products, this.users.address, this.users.name, this.users.phone, this.totalMoney);
-            console.log('Place Order Result:', order);
-
-            if (order) {
-                // Đặt hàng thành công, bạn có thể thực hiện các bước khác như cập nhật trạng thái giỏ hàng, thông báo thành công, v.v.
-                alert('Đặt hàng thành công!');
-            } else {
-                alert('Đặt hàng không thành công. Vui lòng thử lại sau.');
-            }
+            await OrderService.createOrder(user_id, this.products, this.users.address, this.users.name, this.users.phone, this.totalMoney);
+            alert('Đặt hàng thành công');
+           
         } catch (error) {
             console.error('Lỗi khi đặt hàng:', error);
             alert('Đã xảy ra lỗi khi đặt hàng. Vui lòng thử lại sau.');
@@ -128,6 +124,7 @@ export default {
       return this.products.reduce((total, item) => total + item.product.price * item.quantity, 0);
     },
   },
+
   async mounted() {
     try {
       const user_id = JSON.parse(localStorage.getItem('user_id'));
@@ -140,6 +137,7 @@ export default {
       console.error("Lỗi khi lấy thông tin giỏ hàng từ server:", error);
     }
   },
+
   async created() {
         const user_id = JSON.parse(localStorage.getItem('user_id'));
         console.log(user_id);

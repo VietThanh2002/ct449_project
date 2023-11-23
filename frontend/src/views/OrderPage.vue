@@ -2,16 +2,41 @@
     <div>
       <AppHeaderVue />
       <div class="order-page">
-        <p>Trang đặt hàng</p>
-        <!-- Hiển thị thông tin đơn hàng hoặc gọi phương thức để tải dữ liệu đơn hàng từ service -->
-        <div v-if="order">
-          <table class="order-table">
-            <tr>
-              <td><strong>ID Đơn hàng:</strong></td>
-              <td>{{ order._id }}</td>
-            </tr>
-            <!-- Thêm các thông tin khác về đơn hàng tại đây -->
+        <h3 class="text-center m-2 p-2">Đơn đặt hàng</h3>
+        <div v-if="orders && orders.length > 0">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col"><strong>ID Đơn hàng:</strong></th>
+                <th scope="col">Giá</th>
+                <th scope="col">Ngày đặt hàng</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(order, index) in orders" :key="index">
+                <td>{{ index + 1 }}</td>
+                <td>{{ order._id }}</td>
+                <td>{{ formatPrice(order.totalMoney) }}</td>
+                <td>{{ order.orderDate }}</td>
+                <td>{{ order.status }}</td>
+                <td>
+                  <button
+                    class="btn btn-danger"
+                    @click="deleteOrder(order, index)"
+                    :disabled="order.status === 'đang giao hàng'"
+                  >
+                    Xóa
+                  </button>
+                </td>
+              </tr>
+            </tbody>
           </table>
+        </div>
+        <div v-else>
+          <p>Không có đơn hàng nào.</p>
         </div>
       </div>
       <AppFooter />
@@ -21,7 +46,6 @@
   <script>
   import AppHeaderVue from "../components/AppHeader.vue";
   import AppFooter from "../components/AppFooter.vue";
-  // Import OrderService từ nơi bạn đã định nghĩa nó
   import OrderService from "../services/order.service.js";
   
   export default {
@@ -31,24 +55,50 @@
     },
     data() {
       return {
-        order: null, // Lưu trữ thông tin đơn hàng
+        orders: [], // Lưu trữ thông tin tất cả đơn hàng
       };
     },
     mounted() {
-      // Khi component được mount, gọi phương thức để lấy thông tin đơn hàng
+      // Khi component được mount, gọi phương thức để lấy thông tin tất cả đơn hàng
       this.loadOrderData();
     },
     methods: {
+      formatPrice(price) {
+        const formattedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return formattedPrice + "đ";
+      },
       async loadOrderData() {
         try {
-          // Sử dụng OrderService để lấy thông tin đơn hàng (thay đổi theo logic của bạn)
-          const userId = "your_user_id"; // Thay bằng user ID thích hợp
-          const userOrders = await OrderService.getUserOrders(userId);
-  
-          // Giả sử lấy đơn hàng đầu tiên, bạn có thể điều chỉnh theo logic của bạn
-          this.order = userOrders[0];
+          // Sử dụng OrderService để lấy thông tin tất cả đơn hàng (thay đổi theo logic của bạn)
+          const user_id = JSON.parse(localStorage.getItem('user_id'));
+          this.orders = await OrderService.getUserOrders(user_id);
         } catch (error) {
           console.error("Error loading order data:", error);
+        }
+      },
+      async deleteOrder(order, index) {
+        try {
+
+        //   Kiểm tra trạng thái trước khi xóa
+        
+          if (order.status === 'đang giao hàng') {
+            alert('Không thể xóa đơn hàng đã được giao.');
+            return;
+          }
+  
+          // Thực hiện xóa đơn hàng
+          const user_id = JSON.parse(localStorage.getItem('user_id'));
+          const result = await OrderService.deleteOrder(user_id, order._id);
+  
+          // Kiểm tra kết quả và cập nhật danh sách đơn hàng
+          if (result.success) {
+            this.orders.splice(index, 1);
+            alert('Đơn hàng đã được xóa thành công.');
+          } else {
+            alert('Không thể xóa đơn hàng. Vui lòng thử lại sau.');
+          }
+        } catch (error) {
+          console.error("Error deleting order:", error);
         }
       },
     },
@@ -59,29 +109,8 @@
   .order-page {
     max-width: 800px;
     margin: auto;
+    margin-bottom: 320px;
   }
-  
-  .order-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .order-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .order-table td:first-child {
-    width: 40%;
-    font-weight: bold;
-  }
-  
-  .order-table td:last-child {
-    width: 60%;
-  }
-  
   /* Thêm các quy tắc CSS scoped tại đây nếu cần */
   </style>
   
