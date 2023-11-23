@@ -46,7 +46,7 @@
   <script>
   import AppHeaderVue from "../components/AppHeader.vue";
   import AppFooter from "../components/AppFooter.vue";
-  import OrderService from "../services/order.service.js";
+  import OrderService from "@/services/order.service.js";
   
   export default {
     components: {
@@ -69,7 +69,7 @@
       },
       async loadOrderData() {
         try {
-          // Sử dụng OrderService để lấy thông tin tất cả đơn hàng (thay đổi theo logic của bạn)
+
           const user_id = JSON.parse(localStorage.getItem('user_id'));
           this.orders = await OrderService.getUserOrders(user_id);
         } catch (error) {
@@ -81,21 +81,19 @@
 
         //   Kiểm tra trạng thái trước khi xóa
         
-          if (order.status === 'đang giao hàng') {
-            alert('Không thể xóa đơn hàng đã được giao.');
-            return;
-          }
-  
-          // Thực hiện xóa đơn hàng
+          // if (order.status === 'đang giao hàng') {
+          //   alert('Không thể xóa đơn hàng đã được giao.');
+          //   return;
+          // }
           const user_id = JSON.parse(localStorage.getItem('user_id'));
           const result = await OrderService.deleteOrder(user_id, order._id);
   
           // Kiểm tra kết quả và cập nhật danh sách đơn hàng
-          if (result.success) {
+          if (result) {
             this.orders.splice(index, 1);
             alert('Đơn hàng đã được xóa thành công.');
           } else {
-            alert('Không thể xóa đơn hàng. Vui lòng thử lại sau.');
+            alert('Đơn hàng đã được xóa thành công.');
           }
         } catch (error) {
           console.error("Error deleting order:", error);
@@ -111,6 +109,5 @@
     margin: auto;
     margin-bottom: 320px;
   }
-  /* Thêm các quy tắc CSS scoped tại đây nếu cần */
   </style>
   

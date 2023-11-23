@@ -4,8 +4,8 @@
       <h3 class="text-center p-2 m-2">Đơn đặt hàng</h3>
   
       <!-- Bảng hiển thị danh sách đơn hàng -->
-      <table class="table table-hover border">
-        <thead>
+      <table class="table table-hover border shadow">
+        <thead class="bg-warning-subtle">
           <tr>
             <th scope="col">STT</th>
             <th scope="col">ID đơn hàng</th>
@@ -24,8 +24,7 @@
             <td>{{ order.status }}</td>
             <td>
               <button @click="updateOrderStatus(order._id, 'đang giao hàng')" class="btn btn-success p-1 m-1">Duyệt</button>
-              <button @click="deleteOrder(order._id)" class="btn btn-danger p-1 m-1"><i class="fa-solid fa-trash"></i></button>
-              <!-- Thêm các nút khác hoặc thông tin khác cần thiết -->
+              <!-- <button @click="deleteOrder(order._id)" class="btn btn-secondary p-1 m-1"><i class="fa-solid fa-trash"></i></button> -->
             </td>
           </tr>
         </tbody>
@@ -62,13 +61,14 @@
       async updateOrderStatus(orderId, newStatus) {
         try {
             // Gọi phương thức từ OrderService để cập nhật trạng thái đơn hàng
-            const updatedOrder = await OrderService.updateOrderStatus(orderId, newStatus);
+            await OrderService.updateOrderStatus(orderId, newStatus);
 
             // Cập nhật trạng thái trong danh sách hiển thị
             const index = this.orders.findIndex((order) => order._id === orderId);
             if (index !== -1) {
             // Gán trực tiếp giá trị mới
             this.orders[index].status = newStatus;
+            alert('Đã cập nhật trạng thái đơn hàng!!')
             }
         } catch (error) {
             console.error("Lỗi khi cập nhật trạng thái đơn hàng:", error);

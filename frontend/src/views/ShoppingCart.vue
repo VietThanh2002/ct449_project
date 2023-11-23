@@ -2,7 +2,7 @@
   <div>
     <AppHeaderVue />
     <section>
-      <div class="container">
+      <div class="container " style="margin-bottom: 180px;">
         <p class="m-2 p-2 text-center display-5">Giỏ hàng</p>
         <div class="row">
           <div class="col">
@@ -16,7 +16,7 @@
                 <th>Thành tiền</th>
                 <th>Xóa</th>
               </thead>
-         <!-- Trong phần template -->
+         
             <tbody class="text-center">
                 <tr v-for="(item, index) in products" :key="index">
                   <td>{{ index + 1 }}</td>

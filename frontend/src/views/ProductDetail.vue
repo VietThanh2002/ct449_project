@@ -10,13 +10,18 @@
                <div class="">
                     <!-- Kiểm tra nếu product không rỗng trước khi truy cập các thuộc tính khác -->
                     <div class="product-name" v-if="product"><span>Tên sản phẩm: </span>{{ product.name }}</div>
+                    <hr>
                     <div class="product-price" v-if="product"><span>Giá:  </span>{{ formatPrice(product.price) }}</div>
+                    <hr>
                     <div class="product-description" v-if="product"><span>Mô tả:  </span>{{ product.des }}</div>
+                    <hr>
                </div>
                
+              <div class="text-center">
                 <button class="btn_cart rounded-pill mt-3" @click="addProductToCart(product)" style="width: 50px;">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </button>
+              </div>
             </div>
         </div>
     </div>
