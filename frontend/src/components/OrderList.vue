@@ -54,7 +54,7 @@
         },
         async fetchOrders() {
             try {
-            // Gọi phương thức từ OrderService để lấy danh sách đơn hàng
+            
             this.orders = await OrderService.getAllOrders();
             } catch (error) {
             console.error("Error fetching orders:", error);

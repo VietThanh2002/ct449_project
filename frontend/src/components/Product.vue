@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row gx-5">
       <div
-        class="col-lg-3 col-sm-12 col-md-4 list-group-item me-1"
+        class="col-lg-3 col-sm-12 col-md-4 list-group-item me-1 rounded-3"
         v-for="(product, index) in products"
         :key="product._id"
         :class="{ active: index === activeIndex }"

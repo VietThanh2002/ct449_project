@@ -135,7 +135,7 @@ export default {
       const registrationSchema = Yup.object().shape({
         name: Yup.string().required("Tên không được để trống"),
         email: Yup.string().email('Email không hợp lệ').required('Email không được để trống'),
-        password: Yup.string().required('Mật khẩu không được để trống'),
+        password: Yup.string().required('Mật khẩu không được để trống').min(6, 'Mật khẩu ít nhất 6 ký tự'),
         repassword: Yup.string()
           .oneOf([Yup.ref('password'), null], 'Mật khẩu nhập lại không khớp')
           .required('Mật khẩu nhập lại không được để trống'),

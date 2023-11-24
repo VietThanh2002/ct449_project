@@ -35,7 +35,7 @@
             </tbody>
           </table>
         </div>
-        <div v-else>
+        <div v-else class="text-center">
           <p>Không có đơn hàng nào.</p>
         </div>
       </div>
@@ -79,12 +79,6 @@
       async deleteOrder(order, index) {
         try {
 
-        //   Kiểm tra trạng thái trước khi xóa
-        
-          // if (order.status === 'đang giao hàng') {
-          //   alert('Không thể xóa đơn hàng đã được giao.');
-          //   return;
-          // }
           const user_id = JSON.parse(localStorage.getItem('user_id'));
           const result = await OrderService.deleteOrder(user_id, order._id);
   
@@ -107,7 +101,7 @@
   .order-page {
     max-width: 800px;
     margin: auto;
-    margin-bottom: 320px;
+    margin-bottom: 440px;
   }
   </style>
   

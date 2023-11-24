@@ -76,7 +76,7 @@ export default {
   name: "ShoppingCart",
   data() {
     return {
-      products: [],
+      products: [], //item là phần từ trong danh sách
       users: {}, 
     };
   },
@@ -107,8 +107,7 @@ export default {
                 alert('Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi đặt hàng.');
                 return;
             }
-
-            // Tạo đơn hàng
+            
             await OrderService.createOrder(user_id, this.products, this.users.address, this.users.name, this.users.phone, this.totalMoney);
             alert('Đặt hàng thành công');
            
@@ -131,7 +130,8 @@ export default {
       const cart = await CartService.getCart(user_id);
       console.log("Cart data:", cart);
       if (cart) {
-        this.products = cart.items;
+        this.products = cart.items; // thông tin được rán cho mảng product
+        // items đươc dẫn xuất từ phía máy chủ
       }
     } catch (error) {
       console.error("Lỗi khi lấy thông tin giỏ hàng từ server:", error);

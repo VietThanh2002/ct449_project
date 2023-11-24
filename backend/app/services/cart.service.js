@@ -69,7 +69,7 @@ class CartService {
 
         return null;
     }
-    async populateCart(cart) {
+    async populateCart(cart) { //get thông tin từ product server 
         const productIds = cart.items.map(item => item.productId);
     
         try {
@@ -77,7 +77,7 @@ class CartService {
             const products = await this.productService.find({ _id: { $in: productIds } });
     
             const populatedCart = {
-                ...cart,
+                ...cart, //sao chép tất cả các thuộc tính của đối tượng cart vào đối tượng populatedCart
                 items: cart.items.map(item => {
                     // Tìm sản phẩm tương ứng trong danh sách sản phẩm
                     const product = products.find(product => product._id.toString() === item.productId.toString());
@@ -85,7 +85,7 @@ class CartService {
                     // Nếu tìm thấy sản phẩm, thêm thông tin hình ảnh và giá vào item
                     if (product) {
                         return {
-                            ...item,
+                            ...item, // chép 
                             product: {
                                 _id: product._id,
                                 name: product.name,
@@ -104,7 +104,7 @@ class CartService {
         } catch (error) {
             // Xử lý lỗi khi không thể lấy thông tin sản phẩm từ ProductService
             console.error("Lỗi khi lấy thông tin sản phẩm từ ProductService:", error);
-            return cart; // Trả về cart nhưng không bổ sung thông tin về sản phẩm
+            return cart; 
         }
     }
 

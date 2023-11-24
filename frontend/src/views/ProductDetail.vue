@@ -1,6 +1,7 @@
 <template>
     <AppHeaderVue />
     <div class="container-fluid mt-5" style="margin-bottom: 270px;">
+        <h4 class="text-center fw-bold m-2 p-2">Chi tiết sản phẩm</h4>
         <div class="row">
             <div class="col-lg-6">
                 <!-- Kiểm tra nếu product không rỗng trước khi truy cập thuộc tính img -->

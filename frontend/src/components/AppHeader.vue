@@ -64,7 +64,7 @@
     
     data() {
       return {
-        carts: [],
+        // carts: [],
         local_user: {
         role: "",
           
@@ -76,14 +76,14 @@
      handleLogout() {
       localStorage.clear();
       localStorage.removeItem("user_login");
-      this.carts = []; // Cập nhật state giỏ hàng
+      // this.carts = []; // Cập nhật state giỏ hàng
       this.local_user = { role: "" }; // Cập nhật state thông tin người dùng
       this.$router.push({ name: "LoginPage" });
     }
     },
     mounted() {
-      const listLocalCart = JSON.parse(localStorage.getItem("cart") || "[]");
-      this.carts = listLocalCart;
+      // const listLocalCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      // this.carts = listLocalCart;
       const user = JSON.parse(localStorage.getItem("user_id")) || { role: "" };
       const user_id = localStorage.getItem("user_id") || null;
       this.user_id = user_id;
