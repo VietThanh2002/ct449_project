@@ -54,8 +54,7 @@ export default {
             try {
                 const user_id = JSON.parse(localStorage.getItem('user_id'));
                 if (!user_id) {
-                    // Xử lý trường hợp userId không tồn tại hoặc không hợp lệ
-                    console.error("UserId không hợp lệ.");
+                    this.$router.push({ name: 'LoginPage' });
                     return;
                 }
                 

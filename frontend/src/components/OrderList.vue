@@ -10,6 +10,7 @@
             <th scope="col">STT</th>
             <th scope="col">ID đơn hàng</th>
             <th scope="col">Tên Khách Hàng</th>
+            <th scope="col">Ngày đặt hàng:</th>
             <th scope="col">Tổng Tiền</th>
             <th scope="col">Trạng Thái</th>
             <th scope="col">Thao Tác</th>
@@ -20,6 +21,7 @@
             <td>{{ index + 1 }}</td>
             <td>{{ order._id }}</td>
             <td>{{ order.name }}</td>
+            <td>{{ order.orderDate}}</td>
             <td>{{ formatPrice(order.totalMoney) }}</td>
             <td>{{ order.status }}</td>
             <td>
@@ -60,7 +62,6 @@
         },
       async updateOrderStatus(orderId, newStatus) {
         try {
-            // Gọi phương thức từ OrderService để cập nhật trạng thái đơn hàng
             await OrderService.updateOrderStatus(orderId, newStatus);
 
             // Cập nhật trạng thái trong danh sách hiển thị
@@ -76,14 +77,14 @@
         },
     },
     mounted() {
-      // Khi component được mounted, gọi phương thức để lấy danh sách đơn hàng
+    
       this.fetchOrders();
     },
   };
   </script>
   
   <style scoped>
-  /* Thêm bôi đen cho nút duyệt */
+
   .btn-success {
     background-color: #28a745;
     color: #fff;

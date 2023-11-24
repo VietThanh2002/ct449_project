@@ -43,14 +43,13 @@ export default {
       return formattedPrice + "đ";
     },
     async addProductToCart(product) {
-            try {
-                const user_id = JSON.parse(localStorage.getItem('user_id'));
-                if (!user_id) {
-                    // Xử lý trường hợp userId không tồn tại hoặc không hợp lệ
-                    console.error("UserId không hợp lệ.");
-                    return;
-                }
-                
+        try {
+            const user_id = JSON.parse(localStorage.getItem('user_id'));
+
+            if (!user_id) {
+                this.$router.push({ name: 'LoginPage' });
+                return;
+              }
                 await CartService.addToCart(user_id, product._id, 1);
                 this.showAlert("Sản phẩm đã được thêm vào giỏ hàng!");
             } catch (error) {

@@ -11,7 +11,7 @@ class CartService {
     }
 
     async getCart(userId) {
-        return (await this.api.post(`/getCart/${userId}`)).data;
+        return (await this.api.get(`/getCart/${userId}`)).data;
     }
 
     async updateQuantity(userId, productId, quantity) {

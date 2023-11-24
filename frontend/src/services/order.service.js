@@ -27,8 +27,8 @@ class OrderService {
     }
     
     async updateOrderStatus(orderId, newStatus) {
-        const data = { newStatus };  // Chuyển newStatus trong phần thân của yêu cầu PUT
-        return (await this.api.put(`/${orderId}`, data)).data;  // Điều chỉnh đường dẫn để phản ánh đúng route trên server
+        const data = { newStatus }; 
+        return (await this.api.put(`/${orderId}`, data)).data;  
     }
 }
 
