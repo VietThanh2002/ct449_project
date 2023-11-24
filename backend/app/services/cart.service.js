@@ -18,7 +18,7 @@ class CartService {
         const cart = await this.Cart.findOne(filter);
 
         if (!cart) {
-            // Nếu chưa có giỏ hàng, tạo mới giỏ hàng và thêm sản phẩm
+            // Nếu chưa có giỏ hàng
             const newCart = {
                 userId: new ObjectId(userId),
                 items: [{ productId: new ObjectId(productId), quantity: quantity }],
@@ -46,7 +46,7 @@ class CartService {
             return result.value;
         }
 
-        // Nếu sản phẩm đã tồn tại, cập nhật số lượng
+        // Nếu sản phẩm đã tồn tại
         const updatedQuantity = cart.items[existingItemIndex].quantity + quantity;
         const update = {
             $set: { [`items.${existingItemIndex}.quantity`]: updatedQuantity },

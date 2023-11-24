@@ -31,7 +31,7 @@ const routes = [
         path: "/product/:id",
         name: "ProductDetail",
         component: () => import("@/views/ProductDetail.vue"),
-        props: true
+        props: true //Vue Router sẽ tạo ra một object props
     },
     
     {
@@ -70,6 +70,8 @@ const routes = [
         component: () => import("@/views/OrderPage.vue"),
         props: true
     },
+
+    // Admin 
     {
         path: "/admin",
         name: "AdminLogin",
@@ -80,40 +82,77 @@ const routes = [
         name: "AdminPage",
         component: AdminPage,
         beforeEnter: (to, from, next) => {
-          // Kiểm tra xem người dùng đã đăng nhập là admin hay không
           const adminLogin = localStorage.getItem("admin_login");
           if (adminLogin) {
-            // Nếu đăng nhập là admin, cho phép truy cập trang AdminPage
+            // Nếu đăng nhập là admin
             next();
           } else {
-            // Nếu không đăng nhập là admin, chuyển hướng đến trang đăng nhập admin
+            // Nếu không đăng nhập là admin
             next({ name: "AdminLogin" });
           }
         },
     },
+    
     {
         path: "/products/:id",
         name: "product.edit",
         component: () => import("@/views/ProductsEdit.vue"),
-        props: true // Truyền các biến trong $route.params vào làm props
+        props: true, // Truyền các biến trong $route.params vào làm props
+        beforeEnter: (to, from, next) => {
+            const adminLogin = localStorage.getItem("admin_login");
+            if (adminLogin) {
+                next();
+            } else {
+              // Nếu không đăng nhập là admin
+              next({ name: "AdminLogin" });
+            }
+          },
+        
     },
     {
         path: "/products",
         name: "product.add",
         component: () => import("@/views/ProductsEdit.vue"),
-        props: true
+        props: true,
+        beforeEnter: (to, from, next) => {
+            const adminLogin = localStorage.getItem("admin_login");
+            if (adminLogin) {
+                next();
+            } else {
+              // Nếu không đăng nhập là admin
+              next({ name: "AdminLogin" });
+            }
+          },
     },
     {
         path: "/userList",
         name: "user.list",
         component: () => import("@/components/UserList.vue"),
-        props: true
+        props: true,
+        beforeEnter: (to, from, next) => {
+            const adminLogin = localStorage.getItem("admin_login");
+            if (adminLogin) {
+                next();
+            } else {
+              // Nếu không đăng nhập là admin
+              next({ name: "AdminLogin" });
+            }
+          },
     },
     {
         path: "/orderlist",
         name: "order.list",
         component: () => import("@/components/OrderList.vue"),
-        props: true
+        props: true,
+        beforeEnter: (to, from, next) => {
+            const adminLogin = localStorage.getItem("admin_login");
+            if (adminLogin) {
+                next();
+            } else {
+              // Nếu không đăng nhập là admin
+              next({ name: "AdminLogin" });
+            }
+          },
     },
     {
         path: "/login",

@@ -19,7 +19,7 @@ class OrderService {
             name: name,
             phone: phone,
             totalMoney: totalMoney,
-            status: "chờ xử lý" // Trạng thái mặc định khi tạo đơn hàng
+            status: "chờ xử lý" 
         };
 
         const result = await this.Order.insertOne(order);
@@ -40,14 +40,14 @@ class OrderService {
     async getUserOrders(userId) {
         const filter = {
             userId: ObjectId.isValid(userId) ? new ObjectId(userId) : null
-            // Bạn có thể thêm điều kiện lọc theo trạng thái nếu cần
+           
         };
         const orders = await this.Order.find(filter).toArray();
         return orders;
     }
 
     async getAllOrders() {
-        // Bạn có thể thêm điều kiện lọc theo trạng thái nếu cần
+       
         const orders = await this.Order.find({}).toArray();
         return orders;
     }
@@ -56,7 +56,7 @@ class OrderService {
         const filter = {
             userId: ObjectId.isValid(userId) ? new ObjectId(userId) : null,
             _id: ObjectId.isValid(orderId) ? new ObjectId(orderId) : null
-            // Bạn có thể thêm điều kiện lọc theo trạng thái nếu cần
+           
         };
 
         const result = await this.Order.findOneAndDelete(filter);
@@ -70,7 +70,7 @@ class OrderService {
 
         const filter = {
             _id: new ObjectId(orderId)
-            // Bạn có thể thêm điều kiện lọc theo trạng thái nếu cần
+           
         };
 
         const result = await this.Order.findOneAndDelete(filter);
@@ -91,7 +91,7 @@ class OrderService {
             // Cập nhật thành công
             return true;
         } else {
-            // Cập nhật không thành công, có thể do không tìm thấy đơn hàng với ID cung cấp
+            
             return false;
         }
     }

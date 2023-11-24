@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import CartService from "@/services/cart.service.js"; // Thay đổi đường dẫn phù hợp
+import CartService from "@/services/cart.service.js"; 
 import ProductService from "@/services/product.service";
 import AppHeaderVue from "@/components/AppHeader.vue";
 import AppFooterVue from "@/components/AppFooter.vue";

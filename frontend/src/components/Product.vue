@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row gx-5">
       <div
-        class="col-lg-3 list-group-item me-1"
+        class="col-lg-3 col-sm-12 col-md-4 list-group-item me-1"
         v-for="(product, index) in products"
         :key="product._id"
         :class="{ active: index === activeIndex }"
@@ -82,8 +82,8 @@ export default {
 }
 
 .list-group-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .product_name {
